@@ -9,9 +9,6 @@ Public Class Form1
     Dim TextBoxMsg As String
     Dim BarThread As Thread
 
-    Private Delegate Sub WriteExcel(ByVal HisDataList As List(Of List(Of String)), ByVal objImportSheet As Excel.Worksheet)
-
-
     'Button 选择文件
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
@@ -61,9 +58,10 @@ Public Class Form1
             Dim objWorkBook As Excel.Workbook
             Dim objImportSheet As Excel.Worksheet
             '创建Excel进程, 并打开目标Excel文件
-            objExcelFile = New Excel.Application
-            objExcelFile.DisplayAlerts = False
-            objExcelFile.Visible = False
+            objExcelFile = New Excel.Application With {
+                .DisplayAlerts = False,
+                .Visible = False
+            }
             objWorkBook = objExcelFile.Workbooks.Open(Excel)
             objImportSheet = objWorkBook.Sheets(1) '取第1个工作表
             Dim LastColNum As Integer = objImportSheet.UsedRange.Columns.Count '最后有数据的列号
@@ -173,7 +171,6 @@ Public Class Form1
         Dim nConnStatus As Integer
         Dim cLocal As String
         Dim cRemote As String
-        nConnStatus = 0
         cLocal = ""
         cRemote = TxtIPAddress.Text
         If bConn = False Then
