@@ -36,7 +36,11 @@ Partial Class Form1
         Me.Button2 = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
+        Me.Button4 = New System.Windows.Forms.Button()
         Me.DbCommOcxFC7 = New AxDBCOMMOCXLibFC7.AxDbCommOcxFC7()
+        Me.OpenFileDialog3 = New System.Windows.Forms.OpenFileDialog()
         CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -160,6 +164,28 @@ Partial Class Form1
         Me.ProgressBar1.Size = New System.Drawing.Size(360, 23)
         Me.ProgressBar1.TabIndex = 16
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(259, 13)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 18
+        Me.Button3.Text = "Button3"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'OpenFileDialog2
+        '
+        Me.OpenFileDialog2.FileName = "OpenFileDialog2"
+        '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(145, 1)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(75, 23)
+        Me.Button4.TabIndex = 20
+        Me.Button4.Text = "Button4"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
         'DbCommOcxFC7
         '
         Me.DbCommOcxFC7.Enabled = True
@@ -169,12 +195,18 @@ Partial Class Form1
         Me.DbCommOcxFC7.Size = New System.Drawing.Size(32, 32)
         Me.DbCommOcxFC7.TabIndex = 17
         '
+        'OpenFileDialog3
+        '
+        Me.OpenFileDialog3.FileName = "OpenFileDialog3"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(384, 361)
+        Me.Controls.Add(Me.Button4)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.DbCommOcxFC7)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.Button2)
@@ -212,4 +244,8 @@ Partial Class Form1
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents DbCommOcxFC7 As AxDBCOMMOCXLibFC7.AxDbCommOcxFC7
+    Friend WithEvents Button3 As Button
+    Friend WithEvents OpenFileDialog2 As OpenFileDialog
+    Friend WithEvents Button4 As Button
+    Friend WithEvents OpenFileDialog3 As OpenFileDialog
 End Class
