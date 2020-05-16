@@ -44,8 +44,8 @@ Partial Class Form1
         Me.DbCommOcxFC7 = New AxDBCOMMOCXLibFC7.AxDbCommOcxFC7()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Button6 = New System.Windows.Forms.Button()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -261,6 +261,15 @@ Partial Class Form1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "读取数据"
         '
+        'Button6
+        '
+        Me.Button6.Location = New System.Drawing.Point(27, 147)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(98, 35)
+        Me.Button6.TabIndex = 16
+        Me.Button6.Text = "读取实时数据"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.Button4)
@@ -272,15 +281,6 @@ Partial Class Form1
         Me.GroupBox3.TabIndex = 24
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "边界数值"
-        '
-        'Button6
-        '
-        Me.Button6.Location = New System.Drawing.Point(27, 147)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(98, 35)
-        Me.Button6.TabIndex = 16
-        Me.Button6.Text = "读取实时数据"
-        Me.Button6.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -300,7 +300,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "DbComm2Excel"
+        Me.Text = "AP-MASCOT接口管理工具"
         CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
