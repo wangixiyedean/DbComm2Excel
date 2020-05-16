@@ -138,7 +138,7 @@ Partial Class Form1
         Me.CmdRemotConn.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.CmdRemotConn.Name = "CmdRemotConn"
         Me.CmdRemotConn.Size = New System.Drawing.Size(120, 50)
-        Me.CmdRemotConn.TabIndex = 4
+        Me.CmdRemotConn.TabIndex = 1
         Me.CmdRemotConn.Text = "远程连接"
         Me.CmdRemotConn.UseVisualStyleBackColor = True
         '
@@ -181,7 +181,6 @@ Partial Class Form1
         '
         'OpenFileDialog1
         '
-        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         Me.OpenFileDialog1.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
         '
         'ProgressBar1
@@ -207,7 +206,7 @@ Partial Class Form1
         '
         'OpenFileDialog2
         '
-        Me.OpenFileDialog2.FileName = "OpenFileDialog2"
+        Me.OpenFileDialog2.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
         '
         'Button4
         '
@@ -224,7 +223,7 @@ Partial Class Form1
         '
         'OpenFileDialog3
         '
-        Me.OpenFileDialog3.FileName = "OpenFileDialog3"
+        Me.OpenFileDialog3.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
         '
         'Button5
         '
