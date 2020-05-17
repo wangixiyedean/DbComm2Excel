@@ -21,6 +21,24 @@ Public Class Form1
     Private BarThread As Thread
     Private HisOrReal As Integer '读取数据操作标签，1为读取历史数据，2为读取实时数据，3为初始值
 
+    Public AdminMode As Boolean
+
+    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        ConnStatus = False
+        AdminMode = False
+        ExcelPath = ""
+        TextBoxMsg = ""
+        HisOrReal = 3
+        '初始化进度条
+        ProgressBar1.Value = 0
+        ProgressBar1.Minimum = 0
+        ProgressBar1.Maximum = 100
+        '初始化程序的基目录。
+        OpenFileDialog1.InitialDirectory = System.Windows.Forms.Application.StartupPath
+        OpenFileDialog2.InitialDirectory = System.Windows.Forms.Application.StartupPath
+        OpenFileDialog3.InitialDirectory = System.Windows.Forms.Application.StartupPath
+    End Sub
+
     'Button 远程连接
     Private Sub CmdRemotConn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdRemotConn.Click
         Dim nConnStatus As Integer
@@ -371,7 +389,7 @@ Public Class Form1
                 objWorkBook = Nothing
                 objExcelFile = Nothing
                 MsgBox("边界值写入完成！")
-                TextBoxMsg = TextBoxMsg + "文件：" + FilePath.ToString + "中边界值写入力控数据库已完成" + Chr(13) + Chr(10)
+                TextBoxMsg = TextBoxMsg + "文件：" + FilePath.ToString + "中边界值已写入力控数据库" + Chr(13) + Chr(10)
                 TextBox1.Text = TextBoxMsg
             End If
         Else
@@ -734,20 +752,6 @@ Public Class Form1
         BarThread.Abort()
     End Sub
 
-    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        ConnStatus = False
-        ExcelPath = ""
-        TextBoxMsg = ""
-        HisOrReal = 3
-        '初始化进度条
-        ProgressBar1.Value = 0
-        ProgressBar1.Minimum = 0
-        ProgressBar1.Maximum = 100
-        '初始化程序的基目录。
-        OpenFileDialog1.InitialDirectory = System.Windows.Forms.Application.StartupPath
-        OpenFileDialog2.InitialDirectory = System.Windows.Forms.Application.StartupPath
-        OpenFileDialog3.InitialDirectory = System.Windows.Forms.Application.StartupPath
-    End Sub
 
     Private Sub SelectManageExcel(sender As Object, e As EventArgs) Handles Button7.Click
         If OpenFileDialog4.ShowDialog() = DialogResult.OK Then
@@ -810,17 +814,11 @@ Public Class Form1
                     TagName.Trim()
                     Dim TagPV As Double = objImportSheet.Cells(RowNum, 3).value
                     Dim TagUnit As String = objImportSheet.Cells(RowNum, 4).value
-                    Dim ManageData As New ManageData With {
-                        .TagName = TagName,
-                        .PV = TagPV,
-                        .UNIT = TagUnit
-                    }
                     Dim Result1 As Integer = DbCommOcxFC7.SetData(TagName + ".PV", TagPV)
                     Dim Result2 As Integer = DbCommOcxFC7.SetData(TagName + ".UNIT", TagUnit)
                     If ProgressBar1.Value + (900 \ LastRowNum) <= ProgressBar1.Maximum Then
                         ProgressBar1.Value = ProgressBar1.Value + (900 \ LastRowNum)
                         ProgressBar1.PerformStep()
-
                     End If
                 Next
             Catch ex As Exception
@@ -846,6 +844,15 @@ Public Class Form1
         End If
         '进度条重置
         ProgressBar1.Value = 0
+    End Sub
+
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        Dim FormDlg As Form2
+        FormDlg = New Form2 With {
+            .Owner = Me
+        }
+        FormDlg.ShowDialog()
+        MsgBox("已进入管理员模式")
     End Sub
 
     '打开ModelConfig文件，并根据@name和@inTagsData字段生成Boundaries.xlsx模板文件

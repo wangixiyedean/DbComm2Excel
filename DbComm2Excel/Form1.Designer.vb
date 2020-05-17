@@ -41,7 +41,6 @@ Partial Class Form1
         Me.Button4 = New System.Windows.Forms.Button()
         Me.OpenFileDialog3 = New System.Windows.Forms.OpenFileDialog()
         Me.Button5 = New System.Windows.Forms.Button()
-        Me.DbCommOcxFC7 = New AxDBCOMMOCXLibFC7.AxDbCommOcxFC7()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Button6 = New System.Windows.Forms.Button()
@@ -51,12 +50,17 @@ Partial Class Form1
         Me.Button7 = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.OpenFileDialog4 = New System.Windows.Forms.OpenFileDialog()
-        CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Button9 = New System.Windows.Forms.Button()
+        Me.DbCommOcxFC7 = New AxDBCOMMOCXLibFC7.AxDbCommOcxFC7()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
+        CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label4
@@ -199,6 +203,7 @@ Partial Class Form1
         'Button3
         '
         Me.Button3.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button3.Enabled = False
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Button3.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Button3.Location = New System.Drawing.Point(36, 181)
@@ -243,20 +248,11 @@ Partial Class Form1
         Me.Button5.Text = "生成边界点表"
         Me.Button5.UseVisualStyleBackColor = True
         '
-        'DbCommOcxFC7
-        '
-        Me.DbCommOcxFC7.Enabled = True
-        Me.DbCommOcxFC7.Location = New System.Drawing.Point(80, 106)
-        Me.DbCommOcxFC7.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
-        Me.DbCommOcxFC7.Name = "DbCommOcxFC7"
-        Me.DbCommOcxFC7.OcxState = CType(resources.GetObject("DbCommOcxFC7.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.DbCommOcxFC7.Size = New System.Drawing.Size(32, 32)
-        Me.DbCommOcxFC7.TabIndex = 17
-        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.TxtPort)
         Me.GroupBox1.Controls.Add(Me.CmdRemotConn)
+        Me.GroupBox1.Controls.Add(Me.DbCommOcxFC7)
         Me.GroupBox1.Controls.Add(Me.CmdDisconn)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -317,10 +313,9 @@ Partial Class Form1
         '
         Me.GroupBox4.Controls.Add(Me.Button8)
         Me.GroupBox4.Controls.Add(Me.Button7)
-        Me.GroupBox4.Controls.Add(Me.DbCommOcxFC7)
         Me.GroupBox4.Location = New System.Drawing.Point(524, 15)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(200, 250)
+        Me.GroupBox4.Size = New System.Drawing.Size(200, 163)
         Me.GroupBox4.TabIndex = 25
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "经营数值"
@@ -328,9 +323,10 @@ Partial Class Form1
         'Button8
         '
         Me.Button8.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button8.Enabled = False
         Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Button8.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Button8.Location = New System.Drawing.Point(40, 181)
+        Me.Button8.Location = New System.Drawing.Point(40, 103)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(126, 50)
         Me.Button8.TabIndex = 19
@@ -363,12 +359,58 @@ Partial Class Form1
         '
         Me.OpenFileDialog4.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
         '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.TextBox2)
+        Me.GroupBox6.Controls.Add(Me.Button9)
+        Me.GroupBox6.Location = New System.Drawing.Point(524, 185)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(200, 80)
+        Me.GroupBox6.TabIndex = 27
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "管理员模式"
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Cursor = System.Windows.Forms.Cursors.Default
+        Me.TextBox2.Location = New System.Drawing.Point(24, 32)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.ReadOnly = True
+        Me.TextBox2.Size = New System.Drawing.Size(161, 27)
+        Me.TextBox2.TabIndex = 1
+        Me.TextBox2.Text = "当前为管理员模式"
+        Me.TextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.TextBox2.Visible = False
+        '
+        'Button9
+        '
+        Me.Button9.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button9.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.Button9.Font = New System.Drawing.Font("微软雅黑", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Button9.Location = New System.Drawing.Point(38, 26)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(130, 38)
+        Me.Button9.TabIndex = 0
+        Me.Button9.Text = "进入管理员模式"
+        Me.Button9.UseVisualStyleBackColor = True
+        '
+        'DbCommOcxFC7
+        '
+        Me.DbCommOcxFC7.Enabled = True
+        Me.DbCommOcxFC7.Location = New System.Drawing.Point(0, 46)
+        Me.DbCommOcxFC7.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
+        Me.DbCommOcxFC7.Name = "DbCommOcxFC7"
+        Me.DbCommOcxFC7.OcxState = CType(resources.GetObject("DbCommOcxFC7.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.DbCommOcxFC7.Size = New System.Drawing.Size(32, 32)
+        Me.DbCommOcxFC7.TabIndex = 17
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(944, 581)
+        Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
@@ -383,7 +425,6 @@ Partial Class Form1
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "AP-MASCOT接口管理工具"
-        CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -391,6 +432,9 @@ Partial Class Form1
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
+        CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -422,4 +466,7 @@ Partial Class Form1
     Friend WithEvents Button7 As Button
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents OpenFileDialog4 As OpenFileDialog
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents Button9 As Button
+    Friend WithEvents TextBox2 As TextBox
 End Class
