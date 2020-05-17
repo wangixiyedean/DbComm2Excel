@@ -423,6 +423,10 @@ Public Class Form1
             Dim TagDescList As String = ""
             Dim TagPVList As String = ""
             Dim PathUserData As String = System.Windows.Forms.Application.StartupPath & "\Resources\BoundaryTags.csv"
+            Dim fi As FileInfo = New FileInfo(PathUserData)
+            If fi.Exists Then
+                fi.Delete()
+            End If
             Dim t As System.IO.StreamWriter = New System.IO.StreamWriter(PathUserData, True, System.Text.Encoding.UTF8)
             For Each TagData As EFCTagData In ModelList
                 Dim Desc_Key = TagData.Desc_Key + "_X" + TagData.Index.ToString + ".DESC"
@@ -632,6 +636,11 @@ Public Class Form1
             MsgBox("边界值Excel文件已生成。")
             TextBoxMsg = TextBoxMsg + "文件：" + path2.ToString + "边界值Excel文件已生成" + Chr(13) + Chr(10)
             TextBox1.Text = TextBoxMsg
+            Try
+                Process.Start(path2)
+            Catch ex As Exception
+                MsgBox("打开文件失败！")
+            End Try
         Catch ex As Exception
             MsgBox("边界值Excel文件生成错误，请检查文件后重试。")
             TextBoxMsg = TextBoxMsg + "边界值Excel文件生成错误，请检查文件后重试。" + Chr(13) + Chr(10)
@@ -854,7 +863,9 @@ Public Class Form1
             .Owner = Me
         }
         FormDlg.ShowDialog()
-        MsgBox("已进入管理员模式")
+        If AdminMode = True Then
+            MsgBox("已进入管理员模式")
+        End If
     End Sub
 
     '打开ModelConfig文件，并根据@name和@inTagsData字段生成Boundaries.xlsx模板文件

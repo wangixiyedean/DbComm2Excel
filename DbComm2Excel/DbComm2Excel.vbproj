@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>DbComm2Excel.My.MyApplication</StartupObject>
     <RootNamespace>DbComm2Excel</RootNamespace>
-    <AssemblyName>DbComm2Excel</AssemblyName>
+    <AssemblyName>AP-MASCOT接口管理工具</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -37,7 +37,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>DbComm2Excel.xml</DocumentationFile>
+    <DocumentationFile>AP-MASCOT接口管理工具.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
@@ -48,7 +48,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>DbComm2Excel.xml</DocumentationFile>
+    <DocumentationFile>AP-MASCOT接口管理工具.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -77,6 +77,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxInterop.MSWinsockLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -158,6 +161,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' 查看程序集特性的值
 
-<Assembly: AssemblyTitle("DbComm2Excel")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("HP Inc.")> 
-<Assembly: AssemblyProduct("DbComm2Excel")> 
+<Assembly: AssemblyTitle("AP-MASCOT接口管理工具")>
+<Assembly: AssemblyDescription("AP-MASCOT接口管理工具")>
+<Assembly: AssemblyCompany("AP-MASCOT")>
+<Assembly: AssemblyProduct("AP-MASCOT接口管理工具")>
 <Assembly: AssemblyCopyright("Copyright © HP Inc. 2020")> 
 <Assembly: AssemblyTrademark("")> 
 

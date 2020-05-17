@@ -48,6 +48,7 @@ Partial Class Form2
         '
         'Button1
         '
+        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Button1.Font = New System.Drawing.Font("微软雅黑", 13.0!)
         Me.Button1.Location = New System.Drawing.Point(34, 101)
@@ -60,6 +61,7 @@ Partial Class Form2
         '
         'Button2
         '
+        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button2.Font = New System.Drawing.Font("微软雅黑", 13.0!)
         Me.Button2.Location = New System.Drawing.Point(209, 101)
         Me.Button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
