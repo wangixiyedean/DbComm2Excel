@@ -47,11 +47,16 @@ Partial Class Form1
         Me.Button6 = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.OpenFileDialog4 = New System.Windows.Forms.OpenFileDialog()
         CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label4
@@ -145,12 +150,12 @@ Partial Class Form1
         'TextBox1
         '
         Me.TextBox1.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(12, 278)
+        Me.TextBox1.Location = New System.Drawing.Point(6, 30)
         Me.TextBox1.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TextBox1.Size = New System.Drawing.Size(918, 238)
+        Me.TextBox1.Size = New System.Drawing.Size(905, 223)
         Me.TextBox1.TabIndex = 13
         '
         'Button1
@@ -185,10 +190,10 @@ Partial Class Form1
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 530)
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 540)
         Me.ProgressBar1.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(918, 35)
+        Me.ProgressBar1.Size = New System.Drawing.Size(918, 30)
         Me.ProgressBar1.TabIndex = 16
         '
         'Button3
@@ -310,6 +315,8 @@ Partial Class Form1
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.Button8)
+        Me.GroupBox4.Controls.Add(Me.Button7)
         Me.GroupBox4.Controls.Add(Me.DbCommOcxFC7)
         Me.GroupBox4.Location = New System.Drawing.Point(524, 15)
         Me.GroupBox4.Name = "GroupBox4"
@@ -318,18 +325,56 @@ Partial Class Form1
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "经营数值"
         '
+        'Button8
+        '
+        Me.Button8.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.Button8.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Button8.Location = New System.Drawing.Point(40, 181)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(126, 50)
+        Me.Button8.TabIndex = 19
+        Me.Button8.Text = "写入经营数据"
+        Me.Button8.UseVisualStyleBackColor = True
+        '
+        'Button7
+        '
+        Me.Button7.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button7.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.Button7.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Button7.Location = New System.Drawing.Point(40, 28)
+        Me.Button7.Name = "Button7"
+        Me.Button7.Size = New System.Drawing.Size(125, 50)
+        Me.Button7.TabIndex = 18
+        Me.Button7.Text = "选择文件"
+        Me.Button7.UseVisualStyleBackColor = True
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.TextBox1)
+        Me.GroupBox5.Location = New System.Drawing.Point(12, 271)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(918, 263)
+        Me.GroupBox5.TabIndex = 26
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "输出结果"
+        '
+        'OpenFileDialog4
+        '
+        Me.OpenFileDialog4.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(944, 581)
+        Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.ProgressBar1)
-        Me.Controls.Add(Me.TextBox1)
         Me.Font = New System.Drawing.Font("微软雅黑", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -344,8 +389,9 @@ Partial Class Form1
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents Label4 As System.Windows.Forms.Label
@@ -372,4 +418,8 @@ Partial Class Form1
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Button6 As Button
     Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents Button8 As Button
+    Friend WithEvents Button7 As Button
+    Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents OpenFileDialog4 As OpenFileDialog
 End Class

@@ -14,7 +14,8 @@ Public Class Form1
     '                                                                                                  ByVal CfgPath As String) As Integer
 
     Private ConnStatus As Boolean
-    Private ExcelPath As String
+    Private ExcelPath As String '读取数据Excel文件路径
+    Private ManageExcelPath As String '经营数据Excel文件路径
     'Private CfgPath As String
     Private TextBoxMsg As String
     Private BarThread As Thread
@@ -53,7 +54,7 @@ Public Class Form1
     End Sub
 
     'Button 选择文件
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub SelectReadDataExcel(sender As Object, e As EventArgs) Handles Button1.Click
         If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             If IsFileReady(ExcelPath) = False Then
                 MsgBox("目标Excel文件被占用。")
@@ -261,6 +262,7 @@ Public Class Form1
                         Dim RealTimeData As String = ""
                         Tag = objImportSheet.Cells(RolNum, 1).Value().ToString
                         If Tag = Nothing Then
+                            RolNum += 1
                             Continue For
                         End If
                         Tag = Trim(Tag)
@@ -348,7 +350,7 @@ Public Class Form1
                     Dim L_PC3_Key = TagData.Desc_Key + "_L_PC3_X" + TagData.Index.ToString + ".PV"
                     Dim L_PC3_Value = TagData.PC3_L
                     Try
-                        Update2EFC(Desc_Key, Desc_Value, H_PC1_Key, H_PC1_Value, L_PC1_Key, L_PC1_Value, H_PC2_Key, H_PC2_Value, L_PC2_Key, L_PC2_Value, H_PC3_Key, H_PC3_Value, L_PC3_Key, L_PC3_Value)
+                        UpdatePcValue2EFC(Desc_Key, Desc_Value, H_PC1_Key, H_PC1_Value, L_PC1_Key, L_PC1_Value, H_PC2_Key, H_PC2_Value, L_PC2_Key, L_PC2_Value, H_PC3_Key, H_PC3_Value, L_PC3_Key, L_PC3_Value)
                         If ProgressBar1.Value + (9000 \ ModelList.Count) <= ProgressBar1.Maximum Then
                             ProgressBar1.Value = ProgressBar1.Value + (9000 \ ModelList.Count)
                             ProgressBar1.PerformStep()
@@ -515,9 +517,9 @@ Public Class Form1
                 Dim PC3_L_PV As Double = PC3_L_PVList.ElementAt(Index)
                 '封装拿取到的数据
                 Dim TagData As New EFCTagData With {
-                    .Index = Index + 1,'该点位在所在模型的排序
-                    .Desc_Key = ModelName,'该点位在力控数据库中的名字
-                    .Desc_Value = TagName,'该点位在力控数据库中的描述
+                    .Index = Index + 1,
+                    .Desc_Key = ModelName,
+                    .Desc_Value = TagName,
                     .PC1_H = PC1_H_PV,
                     .PC1_L = PC1_L_PV,
                     .PC2_H = PC2_H_PV,
@@ -532,7 +534,7 @@ Public Class Form1
     End Sub
 
     '调用力控接口，更新实时数据
-    Private Sub Update2EFC(Desc_Key As String,
+    Private Sub UpdatePcValue2EFC(Desc_Key As String,
                            Desc_Value As String,
                            H_PC1_Key As String,
                            H_PC1_Value As String,
@@ -745,6 +747,105 @@ Public Class Form1
         OpenFileDialog1.InitialDirectory = System.Windows.Forms.Application.StartupPath
         OpenFileDialog2.InitialDirectory = System.Windows.Forms.Application.StartupPath
         OpenFileDialog3.InitialDirectory = System.Windows.Forms.Application.StartupPath
+    End Sub
+
+    Private Sub SelectManageExcel(sender As Object, e As EventArgs) Handles Button7.Click
+        If OpenFileDialog4.ShowDialog() = DialogResult.OK Then
+            If IsFileReady(ManageExcelPath) = False Then
+                MsgBox("目标Excel文件被占用。")
+                Exit Sub
+            Else
+                ManageExcelPath = OpenFileDialog4.FileName 'Excel文件路径
+                Try
+                    System.Diagnostics.Process.Start(ManageExcelPath)
+                Catch ex As Exception
+                    MsgBox("打开文件失败！")
+                End Try
+                TextBoxMsg = TextBoxMsg + "当前经营数据文件：" + ManageExcelPath.ToString + Chr(13) + Chr(10)
+                TextBox1.Text = TextBoxMsg
+            End If
+        End If
+    End Sub
+
+    Private Sub UpdateManageData2EFC(sender As Object, e As EventArgs) Handles Button8.Click
+        '判断是否已连接力控数据库
+        If ConnStatus = True Then
+            '文件名
+            If ManageExcelPath = Nothing Or ManageExcelPath = "" Then
+                MsgBox("请先选择经营数据文件")
+                ProgressBar1.Value = 0
+                Exit Sub
+            End If
+            ProgressBar1.Maximum = 1000
+            ProgressBar1.Value += 100
+            '判断文件是否被占用
+            If IsFileReady(ManageExcelPath) = False Then
+                MsgBox("目标文件被占用")
+                ProgressBar1.Value = 0
+                Exit Sub
+            End If
+            '初始化Excel实例
+            Dim objExcelFile As Application = Nothing
+            Dim objWorkBook As Workbook = Nothing
+            '创建Excel对象
+            Dim objImportSheet As Excel.Worksheet
+            '创建Excel进程, 并打开目标Excel文件
+            objExcelFile = New Excel.Application With {
+            .DisplayAlerts = False,
+            .Visible = False
+            }
+            objWorkBook = objExcelFile.Workbooks.Open(ManageExcelPath)
+            '获取工作表总数量
+            Dim SheetCount As Integer = objWorkBook.Sheets.Count
+            '获取最后一个工作表
+            objImportSheet = objWorkBook.Sheets(SheetCount)
+            Dim LastColNum As Integer = objImportSheet.UsedRange.Columns.Count '最后有数据的列号
+            Dim LastRowNum As Integer = objImportSheet.UsedRange.Rows.Count '最后有数据的行号
+            Try
+                For RowNum As Integer = 3 To LastRowNum Step 1
+                    Dim TagName As String = objImportSheet.Cells(RowNum, 6).value
+                    If TagName = Nothing Or TagName = "" Then
+                        Continue For
+                    End If
+                    TagName.Trim()
+                    Dim TagPV As Double = objImportSheet.Cells(RowNum, 3).value
+                    Dim TagUnit As String = objImportSheet.Cells(RowNum, 4).value
+                    Dim ManageData As New ManageData With {
+                        .TagName = TagName,
+                        .PV = TagPV,
+                        .UNIT = TagUnit
+                    }
+                    Dim Result1 As Integer = DbCommOcxFC7.SetData(TagName + ".PV", TagPV)
+                    Dim Result2 As Integer = DbCommOcxFC7.SetData(TagName + ".UNIT", TagUnit)
+                    If ProgressBar1.Value + (900 \ LastRowNum) <= ProgressBar1.Maximum Then
+                        ProgressBar1.Value = ProgressBar1.Value + (900 \ LastRowNum)
+                        ProgressBar1.PerformStep()
+
+                    End If
+                Next
+            Catch ex As Exception
+                MsgBox(ex.Message)
+                objExcelFile.ActiveWorkbook.Close(SaveChanges:=True)
+                objExcelFile.Quit()
+                objWorkBook = Nothing
+                objExcelFile = Nothing
+            End Try
+            If ProgressBar1.Value < ProgressBar1.Maximum Then
+                ProgressBar1.Value = ProgressBar1.Maximum
+                ProgressBar1.PerformStep()
+            End If
+            objExcelFile.ActiveWorkbook.Close(SaveChanges:=True)
+            objExcelFile.Quit()
+            objWorkBook = Nothing
+            objExcelFile = Nothing
+            MsgBox("运营数据写入完成！")
+            TextBoxMsg = TextBoxMsg + "文件：" + ManageExcelPath.ToString + "中运营数据已写入力控数据库" + Chr(13) + Chr(10)
+            TextBox1.Text = TextBoxMsg
+        Else
+            MsgBox("数据库未连接！")
+        End If
+        '进度条重置
+        ProgressBar1.Value = 0
     End Sub
 
     '打开ModelConfig文件，并根据@name和@inTagsData字段生成Boundaries.xlsx模板文件
