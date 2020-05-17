@@ -34,9 +34,11 @@ Public Class Form1
         ProgressBar1.Minimum = 0
         ProgressBar1.Maximum = 100
         '初始化程序的基目录。
-        OpenFileDialog1.InitialDirectory = System.Windows.Forms.Application.StartupPath
-        OpenFileDialog2.InitialDirectory = System.Windows.Forms.Application.StartupPath
-        OpenFileDialog3.InitialDirectory = System.Windows.Forms.Application.StartupPath
+        Dim StartPath As String = System.Windows.Forms.Application.StartupPath + "\Resources"
+        OpenFileDialog1.InitialDirectory = StartPath
+        OpenFileDialog2.InitialDirectory = StartPath
+        OpenFileDialog3.InitialDirectory = StartPath
+        OpenFileDialog4.InitialDirectory = StartPath
     End Sub
 
     'Button 远程连接
@@ -420,7 +422,7 @@ Public Class Form1
             '循环ModelList，将点位名写入csv文件
             Dim TagDescList As String = ""
             Dim TagPVList As String = ""
-            Dim PathUserData As String = System.Windows.Forms.Application.StartupPath & "\BoundaryTags.csv"
+            Dim PathUserData As String = System.Windows.Forms.Application.StartupPath & "\Resources\BoundaryTags.csv"
             Dim t As System.IO.StreamWriter = New System.IO.StreamWriter(PathUserData, True, System.Text.Encoding.UTF8)
             For Each TagData As EFCTagData In ModelList
                 Dim Desc_Key = TagData.Desc_Key + "_X" + TagData.Index.ToString + ".DESC"
@@ -613,7 +615,7 @@ Public Class Form1
         ProgressBar1.Value += 50
         ProgressBar1.PerformStep()
         Dim path As String = System.Windows.Forms.Application.StartupPath + "\Boundaries_toExcel\Boundaries_Output.xlsx"
-        Dim path2 As String = System.Windows.Forms.Application.StartupPath + "\Boundaries_Output.xlsx"
+        Dim path2 As String = System.Windows.Forms.Application.StartupPath + "\Resources\Boundaries_Output.xlsx"
         Dim fi1 As FileInfo = New FileInfo(path)
         Dim fi2 As FileInfo = New FileInfo(path2)
         Try
