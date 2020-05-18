@@ -1,8 +1,6 @@
 ﻿Imports System.IO
 Imports System.Threading
 Imports Microsoft.Office.Interop
-Imports Microsoft.Office.Interop.Excel
-
 
 Public Class Form1
     Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Integer)
@@ -348,8 +346,8 @@ Public Class Form1
                     Exit Sub
                 End If
                 '初始化Excel实例
-                Dim objExcelFile As Application = Nothing
-                Dim objWorkBook As Workbook = Nothing
+                Dim objExcelFile As Excel.Application = Nothing
+                Dim objWorkBook As Excel.Workbook = Nothing
                 Dim ModelList As New List(Of EFCTagData)
                 '封装Excel数据
                 GetModelList(FilePath, objExcelFile, objWorkBook, ModelList)
@@ -414,8 +412,8 @@ Public Class Form1
                 Exit Sub
             End If
             '初始化Excel实例
-            Dim objExcelFile As Application = Nothing
-            Dim objWorkBook As Workbook = Nothing
+            Dim objExcelFile As Excel.Application = Nothing
+            Dim objWorkBook As Excel.Workbook = Nothing
             Dim ModelList As New List(Of EFCTagData)
             '封装Excel数据
             GetModelList(FilePath, objExcelFile, objWorkBook, ModelList)
@@ -475,8 +473,8 @@ Public Class Form1
     End Sub
 
     Private Sub GetModelList(FilePath As String,
-                             ByRef objExcelFile As Application,
-                             ByRef objWorkBook As Workbook,
+                             ByRef objExcelFile As Excel.Application,
+                             ByRef objWorkBook As Excel.Workbook,
                              ByRef ModelList As List(Of EFCTagData))
         '创建Excel对象
         'Dim objImportSheet As Excel.Worksheet
@@ -726,7 +724,7 @@ Public Class Form1
     End Function
 
     '封装边界点的PV值
-    Private Function GetPVList(objImportSheet As Worksheet, LastRowNum As Integer, PVList As List(Of Double)) As List(Of Double)
+    Private Function GetPVList(objImportSheet As Excel.Worksheet, LastRowNum As Integer, PVList As List(Of Double)) As List(Of Double)
         For i As Integer = 2 To LastRowNum Step 0
             Dim PV As Double = CDbl(objImportSheet.Cells(i, 2).Value().ToString)
             PVList.Add(PV)
@@ -800,8 +798,8 @@ Public Class Form1
                 Exit Sub
             End If
             '初始化Excel实例
-            Dim objExcelFile As Application = Nothing
-            Dim objWorkBook As Workbook = Nothing
+            Dim objExcelFile As Excel.Application = Nothing
+            Dim objWorkBook As Excel.Workbook = Nothing
             '创建Excel对象
             Dim objImportSheet As Excel.Worksheet
             '创建Excel进程, 并打开目标Excel文件
