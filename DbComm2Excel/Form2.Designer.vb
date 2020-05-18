@@ -24,9 +24,9 @@ Partial Class Form2
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form2))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -38,13 +38,34 @@ Partial Class Form2
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Font = New System.Drawing.Font("微软雅黑", 12.0!)
         Me.GroupBox1.Location = New System.Drawing.Point(13, 13)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(358, 175)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "请输入管理员密码"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(87, 45)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.TextBox1.Size = New System.Drawing.Size(191, 29)
+        Me.TextBox1.TabIndex = 1
+        '
+        'Button2
+        '
+        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button2.Font = New System.Drawing.Font("微软雅黑", 13.0!)
+        Me.Button2.Location = New System.Drawing.Point(209, 101)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(112, 39)
+        Me.Button2.TabIndex = 3
+        Me.Button2.Text = "取消"
+        Me.Button2.UseVisualStyleBackColor = True
         '
         'Button1
         '
@@ -52,32 +73,12 @@ Partial Class Form2
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Button1.Font = New System.Drawing.Font("微软雅黑", 13.0!)
         Me.Button1.Location = New System.Drawing.Point(34, 101)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(112, 39)
         Me.Button1.TabIndex = 2
         Me.Button1.Text = "确定"
         Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button2.Font = New System.Drawing.Font("微软雅黑", 13.0!)
-        Me.Button2.Location = New System.Drawing.Point(209, 101)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(112, 39)
-        Me.Button2.TabIndex = 3
-        Me.Button2.Text = "取消"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(87, 45)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(191, 29)
-        Me.TextBox1.TabIndex = 4
         '
         'Form2
         '
@@ -87,7 +88,8 @@ Partial Class Form2
         Me.Controls.Add(Me.GroupBox1)
         Me.Font = New System.Drawing.Font("微软雅黑", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.KeyPreview = True
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Form2"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "管理员模式"

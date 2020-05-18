@@ -232,6 +232,11 @@ Public Class Form1
 
     Private Sub ReadRealData(sender As Object, e As EventArgs) Handles Button6.Click
         If ConnStatus = True Then
+            If ExcelPath = Nothing Or ExcelPath = "" Then
+                MsgBox("请先选择文件")
+                ProgressBar1.Value = 0
+                Exit Sub
+            End If
             If HisOrReal = 3 Then
                 Dim r As MsgBoxResult = MsgBox("确定读取实时数据到" + ExcelPath + "中吗？", MsgBoxStyle.OkCancel, "读取数据")
                 If r = MsgBoxResult.Cancel Then
@@ -242,11 +247,6 @@ Public Class Form1
                 Exit Sub
             End If
             Dim StartTime As Date = Date.Now '记录程序开始时间
-            If ExcelPath = Nothing Or ExcelPath = "" Then
-                MsgBox("请先选择文件")
-                ProgressBar1.Value = 0
-                Exit Sub
-            End If
             '进度条推进
             CreateTread4Bar()
             If IsFileReady(ExcelPath) = False Then
@@ -275,9 +275,12 @@ Public Class Form1
             If LastRowNum >= 2 Then
                 Try
                     '顺序取出Tag并根据Tag查询实时数据，将返回数据插入Excel中
-                    For RolNum As Integer = 2 To LastRowNum Step 0
+                    For RolNum As Integer = 2 To LastRowNum Step 1
                         Dim Tag As String
                         Dim RealTimeData As String = ""
+                        If objImportSheet.Cells(RolNum, 1).Value() = Nothing Then
+                            Continue For
+                        End If
                         Tag = objImportSheet.Cells(RolNum, 1).Value().ToString
                         If Tag = Nothing Then
                             RolNum += 1
@@ -290,7 +293,6 @@ Public Class Form1
                             ProgressBar1.Value = ProgressBar1.Value + 80 \ LastRowNum
                             ProgressBar1.PerformStep()
                         End If
-                        RolNum += 1
                     Next
                     If ProgressBar1.Value < ProgressBar1.Maximum Then
                         ProgressBar1.Value = ProgressBar1.Maximum
@@ -353,19 +355,19 @@ Public Class Form1
                 GetModelList(FilePath, objExcelFile, objWorkBook, ModelList)
                 '循环ModelList，写入EFC_DB
                 For Each TagData As EFCTagData In ModelList
-                    Dim Desc_Key = TagData.Desc_Key + "_X" + TagData.Index.ToString + ".DESC"
+                    Dim Desc_Key = "BoundaryDesc\" + TagData.Desc_Key + "_X" + TagData.Index.ToString + ".DESC"
                     Dim Desc_Value = TagData.Desc_Value
-                    Dim H_PC1_Key = TagData.Desc_Key + "_H_PC1_X" + TagData.Index.ToString + ".PV"
+                    Dim H_PC1_Key = "BoundaryPV\" + TagData.Desc_Key + "_H_PC1_X" + TagData.Index.ToString + ".PV"
                     Dim H_PC1_Value = TagData.PC1_H
-                    Dim L_PC1_Key = TagData.Desc_Key + "_L_PC1_X" + TagData.Index.ToString + ".PV"
+                    Dim L_PC1_Key = "BoundaryPV\" + TagData.Desc_Key + "_L_PC1_X" + TagData.Index.ToString + ".PV"
                     Dim L_PC1_Value = TagData.PC1_L
-                    Dim H_PC2_Key = TagData.Desc_Key + "_H_PC2_X" + TagData.Index.ToString + ".PV"
+                    Dim H_PC2_Key = "BoundaryPV\" + TagData.Desc_Key + "_H_PC2_X" + TagData.Index.ToString + ".PV"
                     Dim H_PC2_Value = TagData.PC2_H
-                    Dim L_PC2_Key = TagData.Desc_Key + "_L_PC2_X" + TagData.Index.ToString + ".PV"
+                    Dim L_PC2_Key = "BoundaryPV\" + TagData.Desc_Key + "_L_PC2_X" + TagData.Index.ToString + ".PV"
                     Dim L_PC2_Value = TagData.PC2_L
-                    Dim H_PC3_Key = TagData.Desc_Key + "_H_PC3_X" + TagData.Index.ToString + ".PV"
+                    Dim H_PC3_Key = "BoundaryPV\" + TagData.Desc_Key + "_H_PC3_X" + TagData.Index.ToString + ".PV"
                     Dim H_PC3_Value = TagData.PC3_H
-                    Dim L_PC3_Key = TagData.Desc_Key + "_L_PC3_X" + TagData.Index.ToString + ".PV"
+                    Dim L_PC3_Key = "BoundaryPV\" + TagData.Desc_Key + "_L_PC3_X" + TagData.Index.ToString + ".PV"
                     Dim L_PC3_Value = TagData.PC3_L
                     Try
                         UpdatePcValue2EFC(Desc_Key, Desc_Value, H_PC1_Key, H_PC1_Value, L_PC1_Key, L_PC1_Value, H_PC2_Key, H_PC2_Value, L_PC2_Key, L_PC2_Value, H_PC3_Key, H_PC3_Value, L_PC3_Key, L_PC3_Value)
@@ -504,10 +506,12 @@ Public Class Form1
                 If PcFlag = ModelFlag Then
                     Dim SheetName As String = objImportSheet.Name
                     ModelName = SheetName.Substring(0, SheetName.LastIndexOf("_")) '工作表名去掉后缀就是模型名，例:DHU_T3001_pc1High
-                    For i As Integer = 2 To LastRowNum Step 0
+                    For i As Integer = 2 To LastRowNum Step 1
+                        If objImportSheet.Cells(i, 1).Value() = Nothing Then
+                            Continue For
+                        End If
                         Dim TagName As String = objImportSheet.Cells(i, 1).Value().ToString
                         TagNameList.Add(TagName)
-                        i += 1
                     Next
                 End If
                 Dim PVList As New List(Of Double)
@@ -822,9 +826,9 @@ Public Class Form1
                     End If
                     TagName.Trim()
                     Dim TagPV As Double = objImportSheet.Cells(RowNum, 3).value
-                    Dim TagUnit As String = objImportSheet.Cells(RowNum, 4).value
+                    Dim TagEU As String = objImportSheet.Cells(RowNum, 4).value
                     Dim Result1 As Integer = DbCommOcxFC7.SetData(TagName + ".PV", TagPV)
-                    Dim Result2 As Integer = DbCommOcxFC7.SetData(TagName + ".UNIT", TagUnit)
+                    Dim Result2 As Integer = DbCommOcxFC7.SetData(TagName + ".EU", TagEU)
                     If ProgressBar1.Value + (900 \ LastRowNum) <= ProgressBar1.Maximum Then
                         ProgressBar1.Value = ProgressBar1.Value + (900 \ LastRowNum)
                         ProgressBar1.PerformStep()

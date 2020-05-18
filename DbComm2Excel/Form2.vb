@@ -18,6 +18,12 @@
         End If
     End Sub
 
+    Private Sub Form2_KeyDown(ByVal sender As Object, ByVal ke As KeyEventArgs) Handles MyBase.KeyDown
+        If ke.KeyCode = Keys.Enter Then
+            Button1_Click(sender, ke)
+        End If
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Me.Close()
     End Sub
