@@ -78,6 +78,7 @@ Public Class Form1
                 End Try
                 TextBoxMsg = TextBoxMsg + "当前文件：" + ReadDataExcelPath.ToString + Chr(13) + Chr(10)
                 TextResult.Text = TextBoxMsg
+                ScrollToEnd()
             End If
         End If
     End Sub
@@ -198,6 +199,7 @@ Public Class Form1
                     MsgBox("完成！" + Chr(10) + Chr(13) + StartTime.ToString + Chr(10) + Chr(13) + EndTime.ToString)
                     TextBoxMsg = TextBoxMsg + "文件：" + ReadDataExcelPath.ToString + "历史数据写入完成" + Chr(13) + Chr(10)
                     TextResult.Text = TextBoxMsg
+                    ScrollToEnd()
                     Try
                         Process.Start(ReadDataExcelPath)
                     Catch ex As Exception
@@ -301,6 +303,7 @@ Public Class Form1
                     MsgBox("完成！" + Chr(10) + Chr(13) + StartTime.ToString + Chr(10) + Chr(13) + EndTime.ToString)
                     TextBoxMsg = TextBoxMsg + "文件：" + ReadDataExcelPath.ToString + "实时数据写入完成" + Chr(13) + Chr(10)
                     TextResult.Text = TextBoxMsg
+                    ScrollToEnd()
                     Try
                         Process.Start(ReadDataExcelPath)
                     Catch ex As Exception
@@ -386,6 +389,7 @@ Public Class Form1
                 MsgBox("边界值写入完成！")
                 TextBoxMsg = TextBoxMsg + "文件：" + FilePath.ToString + "中边界值已写入力控数据库" + Chr(13) + Chr(10)
                 TextResult.Text = TextBoxMsg
+                ScrollToEnd()
             End If
         Else
             MsgBox("数据库未连接！")
@@ -458,6 +462,7 @@ Public Class Form1
             MsgBox("边界点名文件已生成！")
             TextBoxMsg = TextBoxMsg + "文件：" + PathUserData.ToString + "边界点名文件已生成" + Chr(13) + Chr(10)
             TextResult.Text = TextBoxMsg
+            ScrollToEnd()
             Try
                 Process.Start(PathUserData)
             Catch ex As Exception
@@ -633,6 +638,7 @@ Public Class Form1
             MsgBox("边界值Excel文件已生成。")
             TextBoxMsg = TextBoxMsg + "文件：" + path2.ToString + "边界值Excel文件已生成" + Chr(13) + Chr(10)
             TextResult.Text = TextBoxMsg
+            ScrollToEnd()
             Try
                 Process.Start(path2)
             Catch ex As Exception
@@ -642,6 +648,7 @@ Public Class Form1
             MsgBox("边界值Excel文件生成错误，请检查文件后重试。")
             TextBoxMsg = TextBoxMsg + "边界值Excel文件生成错误，请检查文件后重试。" + Chr(13) + Chr(10)
             TextResult.Text = TextBoxMsg
+            ScrollToEnd()
             '进度条重置
             ProgressBar1.Value = 0
             Exit Sub
@@ -666,6 +673,7 @@ Public Class Form1
             MsgBox("调用Boundaries_toExcel.exe失败，请检查后重试")
             TextBoxMsg = TextBoxMsg + "调用Boundaries_toExcel.exe失败，请检查后重试" + Chr(13) + Chr(10)
             TextResult.Text = TextBoxMsg
+            ScrollToEnd()
             Return 0
         End Try
         Return pid
@@ -774,6 +782,7 @@ Public Class Form1
                 End Try
                 TextBoxMsg = TextBoxMsg + "当前经营数据文件：" + ManageExcelPath.ToString + Chr(13) + Chr(10)
                 TextResult.Text = TextBoxMsg
+                ScrollToEnd()
             End If
         End If
     End Sub
@@ -847,6 +856,7 @@ Public Class Form1
             MsgBox("运营数据写入完成！")
             TextBoxMsg = TextBoxMsg + "文件：" + ManageExcelPath.ToString + "中运营数据已写入力控数据库" + Chr(13) + Chr(10)
             TextResult.Text = TextBoxMsg
+            ScrollToEnd()
         Else
             MsgBox("数据库未连接！")
         End If
@@ -881,6 +891,7 @@ Public Class Form1
                 End Try
                 TextBoxMsg = TextBoxMsg + "当前历史数据文件：" + InsertHisDataExcelPath.ToString + Chr(13) + Chr(10)
                 TextResult.Text = TextBoxMsg
+                ScrollToEnd()
             End If
         End If
     End Sub
@@ -956,6 +967,7 @@ Public Class Form1
                 MsgBox("历史数据插入完成！")
                 TextBoxMsg += "文件:" + InsertHisDataExcelPath + "中历史数据已插入力控数据库"
                 TextResult.Text = TextBoxMsg
+                ScrollToEnd()
             Catch ex As Exception
                 MsgBox(ex.Message)
                 objExcelFile.ActiveWorkbook.Close(SaveChanges:=False)
@@ -974,6 +986,12 @@ Public Class Form1
         Else
             MsgBox("数据库未连接！")
         End If
+    End Sub
+
+    Private Sub ScrollToEnd()
+        TextResult.SelectionLength = 0
+        TextResult.SelectionStart = TextResult.Text.Length
+        TextResult.ScrollToCaret()
     End Sub
 
     <Obsolete>
