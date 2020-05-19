@@ -42,6 +42,7 @@ Partial Class Form1
         Me.OpenFileDialog3 = New System.Windows.Forms.OpenFileDialog()
         Me.GenerateBoundariesButton = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.DbCommOcxFC7 = New AxDBCOMMOCXLibFC7.AxDbCommOcxFC7()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.ReadRealTimeDataButton = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -57,15 +58,14 @@ Partial Class Form1
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.InsertHisDataButton = New System.Windows.Forms.Button()
         Me.SelectInsertHisDataExcelButton = New System.Windows.Forms.Button()
-        Me.DbCommOcxFC7 = New AxDBCOMMOCXLibFC7.AxDbCommOcxFC7()
         Me.GroupBox1.SuspendLayout()
+        CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
-        CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label4
@@ -164,7 +164,7 @@ Partial Class Form1
         Me.TextResult.Multiline = True
         Me.TextResult.Name = "TextResult"
         Me.TextResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TextResult.Size = New System.Drawing.Size(577, 205)
+        Me.TextResult.Size = New System.Drawing.Size(577, 215)
         Me.TextResult.TabIndex = 13
         '
         'SelectReadDataExcelButton
@@ -274,6 +274,16 @@ Partial Class Form1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "连接属性"
         '
+        'DbCommOcxFC7
+        '
+        Me.DbCommOcxFC7.Enabled = True
+        Me.DbCommOcxFC7.Location = New System.Drawing.Point(0, 46)
+        Me.DbCommOcxFC7.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
+        Me.DbCommOcxFC7.Name = "DbCommOcxFC7"
+        Me.DbCommOcxFC7.OcxState = CType(resources.GetObject("DbCommOcxFC7.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.DbCommOcxFC7.Size = New System.Drawing.Size(32, 32)
+        Me.DbCommOcxFC7.TabIndex = 17
+        '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.ReadRealTimeDataButton)
@@ -354,9 +364,9 @@ Partial Class Form1
         'GroupBox5
         '
         Me.GroupBox5.Controls.Add(Me.TextResult)
-        Me.GroupBox5.Location = New System.Drawing.Point(218, 274)
+        Me.GroupBox5.Location = New System.Drawing.Point(218, 264)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(592, 241)
+        Me.GroupBox5.Size = New System.Drawing.Size(592, 251)
         Me.GroupBox5.TabIndex = 26
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "输出结果"
@@ -438,16 +448,6 @@ Partial Class Form1
         Me.SelectInsertHisDataExcelButton.Text = "选择文件"
         Me.SelectInsertHisDataExcelButton.UseVisualStyleBackColor = True
         '
-        'DbCommOcxFC7
-        '
-        Me.DbCommOcxFC7.Enabled = True
-        Me.DbCommOcxFC7.Location = New System.Drawing.Point(0, 46)
-        Me.DbCommOcxFC7.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
-        Me.DbCommOcxFC7.Name = "DbCommOcxFC7"
-        Me.DbCommOcxFC7.OcxState = CType(resources.GetObject("DbCommOcxFC7.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.DbCommOcxFC7.Size = New System.Drawing.Size(32, 32)
-        Me.DbCommOcxFC7.TabIndex = 17
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -472,6 +472,7 @@ Partial Class Form1
         Me.Text = "AP-MASCOT接口管理工具"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
@@ -480,7 +481,6 @@ Partial Class Form1
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
-        CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
