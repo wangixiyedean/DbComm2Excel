@@ -28,6 +28,7 @@ Public Class Form1
         OpenFileDialog2.InitialDirectory = StartPath
         OpenFileDialog3.InitialDirectory = StartPath
         OpenFileDialog4.InitialDirectory = StartPath
+        OpenFileDialog5.InitialDirectory = StartPath
     End Sub
 
     'Button 远程连接
