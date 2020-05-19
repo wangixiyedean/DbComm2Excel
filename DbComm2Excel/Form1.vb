@@ -4,27 +4,18 @@ Imports Microsoft.Office.Interop
 
 Public Class Form1
     Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Integer)
-    'Private Declare Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" (ByVal SectionName As String,
-    '                                                                                                  ByVal KeyName As String,
-    '                                                                                                  ByVal KeyNameDefault As String,
-    '                                                                                                  ByVal ReturnedString As String,
-    '                                                                                                  ByVal BufferSize As Integer,
-    '                                                                                                  ByVal CfgPath As String) As Integer
-
     Private ConnStatus As Boolean
-    Private ExcelPath As String '读取数据Excel文件路径
+    Private ReadDataExcelPath As String '读取数据Excel文件路径
     Private ManageExcelPath As String '经营数据Excel文件路径
-    'Private CfgPath As String
+    Private InsertHisDataExcelPath As String '插入历史数据Excel文件路径
     Private TextBoxMsg As String
     Private BarThread As Thread
     Private HisOrReal As Integer '读取数据操作标签，1为读取历史数据，2为读取实时数据，3为初始值
-
     Public AdminMode As Boolean
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ConnStatus = False
         AdminMode = False
-        ExcelPath = ""
         TextBoxMsg = ""
         HisOrReal = 3
         '初始化进度条
@@ -71,35 +62,35 @@ Public Class Form1
         End If
     End Sub
 
-    'Button 选择文件
-    Private Sub SelectReadDataExcel(sender As Object, e As EventArgs) Handles Button1.Click
+    'Button 选择读取数据目标文件
+    Private Sub SelectReadDataExcel(sender As Object, e As EventArgs) Handles SelectReadDataExcelButton.Click
         If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-            If IsFileReady(ExcelPath) = False Then
+            If IsFileReady(ReadDataExcelPath) = False Then
                 MsgBox("目标Excel文件被占用。")
                 Exit Sub
             Else
-                ExcelPath = OpenFileDialog1.FileName 'Excel文件路径
+                ReadDataExcelPath = OpenFileDialog1.FileName 'Excel文件路径
                 Try
-                    System.Diagnostics.Process.Start(ExcelPath)
+                    System.Diagnostics.Process.Start(ReadDataExcelPath)
                 Catch ex As Exception
                     MsgBox("打开文件失败！")
                 End Try
-                TextBoxMsg = TextBoxMsg + "当前文件：" + ExcelPath.ToString + Chr(13) + Chr(10)
-                TextBox1.Text = TextBoxMsg
+                TextBoxMsg = TextBoxMsg + "当前文件：" + ReadDataExcelPath.ToString + Chr(13) + Chr(10)
+                TextResult.Text = TextBoxMsg
             End If
         End If
     End Sub
 
     'Button 读取历史数据
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ReadHisDataButton.Click
         If ConnStatus = True Then
-            If ExcelPath = Nothing Or ExcelPath = "" Then
+            If ReadDataExcelPath = Nothing Or ReadDataExcelPath = "" Then
                 MsgBox("请先选择文件")
                 ProgressBar1.Value = 0
                 Exit Sub
             End If
             If HisOrReal = 3 Then
-                Dim r As MsgBoxResult = MsgBox("确定读取历史数据到" + ExcelPath + "中吗？", MsgBoxStyle.OkCancel, "读取数据")
+                Dim r As MsgBoxResult = MsgBox("确定读取历史数据到" + ReadDataExcelPath + "中吗？", MsgBoxStyle.OkCancel, "读取数据")
                 If r = MsgBoxResult.Cancel Then
                     Exit Sub
                 End If
@@ -111,7 +102,7 @@ Public Class Form1
 
             '进度条推进
             CreateTread4Bar()
-            If IsFileReady(ExcelPath) = False Then
+            If IsFileReady(ReadDataExcelPath) = False Then
                 MsgBox("目标Excel文件被占用")
                 ProgressBar1.Value = 0
                 Exit Sub
@@ -124,7 +115,7 @@ Public Class Form1
                 .DisplayAlerts = False,
                 .Visible = False
             }
-            objWorkBook = objExcelFile.Workbooks.Open(ExcelPath)
+            objWorkBook = objExcelFile.Workbooks.Open(ReadDataExcelPath)
             objImportSheet = objWorkBook.Sheets(1) '取第1个工作表
             Dim LastColNum As Integer = objImportSheet.UsedRange.Columns.Count '最后有数据的列号
             Dim LastRowNum As Integer = objImportSheet.UsedRange.Rows.Count '最后有数据的行号
@@ -204,10 +195,10 @@ Public Class Form1
                     objExcelFile = Nothing
                     Dim EndTime As Date = Date.Now '记录程序结束时间
                     MsgBox("完成！" + Chr(10) + Chr(13) + StartTime.ToString + Chr(10) + Chr(13) + EndTime.ToString)
-                    TextBoxMsg = TextBoxMsg + "文件：" + ExcelPath.ToString + "历史数据写入完成" + Chr(13) + Chr(10)
-                    TextBox1.Text = TextBoxMsg
+                    TextBoxMsg = TextBoxMsg + "文件：" + ReadDataExcelPath.ToString + "历史数据写入完成" + Chr(13) + Chr(10)
+                    TextResult.Text = TextBoxMsg
                     Try
-                        Process.Start(ExcelPath)
+                        Process.Start(ReadDataExcelPath)
                     Catch ex As Exception
                         MsgBox("打开文件失败！")
                     End Try
@@ -230,15 +221,16 @@ Public Class Form1
         ProgressBar1.Value = 0
     End Sub
 
-    Private Sub ReadRealData(sender As Object, e As EventArgs) Handles Button6.Click
+    '读取实时数据
+    Private Sub ReadRealData(sender As Object, e As EventArgs) Handles ReadRealTimeDataButton.Click
         If ConnStatus = True Then
-            If ExcelPath = Nothing Or ExcelPath = "" Then
+            If ReadDataExcelPath = Nothing Or ReadDataExcelPath = "" Then
                 MsgBox("请先选择文件")
                 ProgressBar1.Value = 0
                 Exit Sub
             End If
             If HisOrReal = 3 Then
-                Dim r As MsgBoxResult = MsgBox("确定读取实时数据到" + ExcelPath + "中吗？", MsgBoxStyle.OkCancel, "读取数据")
+                Dim r As MsgBoxResult = MsgBox("确定读取实时数据到" + ReadDataExcelPath + "中吗？", MsgBoxStyle.OkCancel, "读取数据")
                 If r = MsgBoxResult.Cancel Then
                     Exit Sub
                 End If
@@ -249,7 +241,7 @@ Public Class Form1
             Dim StartTime As Date = Date.Now '记录程序开始时间
             '进度条推进
             CreateTread4Bar()
-            If IsFileReady(ExcelPath) = False Then
+            If IsFileReady(ReadDataExcelPath) = False Then
                 MsgBox("目标Excel文件被占用")
                 ProgressBar1.Value = 0
                 Exit Sub
@@ -262,7 +254,7 @@ Public Class Form1
                 .DisplayAlerts = False,
                 .Visible = False
             }
-            objWorkBook = objExcelFile.Workbooks.Open(ExcelPath)
+            objWorkBook = objExcelFile.Workbooks.Open(ReadDataExcelPath)
             objImportSheet = objWorkBook.Sheets(1) '取第1个工作表
             Dim LastColNum As Integer = objImportSheet.UsedRange.Columns.Count '最后有数据的列号
             Dim LastRowNum As Integer = objImportSheet.UsedRange.Rows.Count '最后有数据的行号
@@ -306,10 +298,10 @@ Public Class Form1
                     objExcelFile = Nothing
                     Dim EndTime As Date = Date.Now '记录程序结束时间
                     MsgBox("完成！" + Chr(10) + Chr(13) + StartTime.ToString + Chr(10) + Chr(13) + EndTime.ToString)
-                    TextBoxMsg = TextBoxMsg + "文件：" + ExcelPath.ToString + "实时数据写入完成" + Chr(13) + Chr(10)
-                    TextBox1.Text = TextBoxMsg
+                    TextBoxMsg = TextBoxMsg + "文件：" + ReadDataExcelPath.ToString + "实时数据写入完成" + Chr(13) + Chr(10)
+                    TextResult.Text = TextBoxMsg
                     Try
-                        Process.Start(ExcelPath)
+                        Process.Start(ReadDataExcelPath)
                     Catch ex As Exception
                         MsgBox("打开文件失败！")
                     End Try
@@ -333,7 +325,7 @@ Public Class Form1
     End Sub
 
     '读取BoundAries.xlsx，将边界值写入力控数据库
-    Private Sub UpdateBoundaries2EFC(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub UpdateBoundaries2EFC(sender As Object, e As EventArgs) Handles UpdateBoundariesButton.Click
         '判断是否已连接力控数据库
         If ConnStatus = True Then
             If OpenFileDialog2.ShowDialog() = DialogResult.OK Then
@@ -392,7 +384,7 @@ Public Class Form1
                 objExcelFile = Nothing
                 MsgBox("边界值写入完成！")
                 TextBoxMsg = TextBoxMsg + "文件：" + FilePath.ToString + "中边界值已写入力控数据库" + Chr(13) + Chr(10)
-                TextBox1.Text = TextBoxMsg
+                TextResult.Text = TextBoxMsg
             End If
         Else
             MsgBox("数据库未连接！")
@@ -401,7 +393,8 @@ Public Class Form1
         ProgressBar1.Value = 0
     End Sub
 
-    Private Sub GenerateBoundariesTagCsv(sender As Object, e As EventArgs) Handles Button4.Click
+    'button 生成边界点名csv文件
+    Private Sub GenerateBoundariesTagCsv(sender As Object, e As EventArgs) Handles GetBoundariesTagsButton.Click
         If OpenFileDialog3.ShowDialog() = DialogResult.OK Then
             '获取文件名
             Dim FilePath = OpenFileDialog3.FileName
@@ -463,7 +456,7 @@ Public Class Form1
             objExcelFile = Nothing
             MsgBox("边界点名文件已生成！")
             TextBoxMsg = TextBoxMsg + "文件：" + PathUserData.ToString + "边界点名文件已生成" + Chr(13) + Chr(10)
-            TextBox1.Text = TextBoxMsg
+            TextResult.Text = TextBoxMsg
             Try
                 Process.Start(PathUserData)
             Catch ex As Exception
@@ -559,7 +552,7 @@ Public Class Form1
         Next
     End Sub
 
-    '调用力控接口，更新实时数据
+    '调用力控接口，更新边界点实时数据
     Private Sub UpdatePcValue2EFC(Desc_Key As String,
                            Desc_Value As String,
                            H_PC1_Key As String,
@@ -612,7 +605,8 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub GenerateBoundariesExcel(sender As Object, e As EventArgs) Handles Button5.Click
+    'button 生成边界点表
+    Private Sub GenerateBoundariesExcel(sender As Object, e As EventArgs) Handles GenerateBoundariesButton.Click
         Dim pid As Integer = RunBoundaries2Excel()
         If pid <= 0 Then
             MsgBox("边界值Excel文件生成错误，请检查文件后重试。")
@@ -637,7 +631,7 @@ Public Class Form1
             ProgressBar1.PerformStep()
             MsgBox("边界值Excel文件已生成。")
             TextBoxMsg = TextBoxMsg + "文件：" + path2.ToString + "边界值Excel文件已生成" + Chr(13) + Chr(10)
-            TextBox1.Text = TextBoxMsg
+            TextResult.Text = TextBoxMsg
             Try
                 Process.Start(path2)
             Catch ex As Exception
@@ -646,7 +640,7 @@ Public Class Form1
         Catch ex As Exception
             MsgBox("边界值Excel文件生成错误，请检查文件后重试。")
             TextBoxMsg = TextBoxMsg + "边界值Excel文件生成错误，请检查文件后重试。" + Chr(13) + Chr(10)
-            TextBox1.Text = TextBoxMsg
+            TextResult.Text = TextBoxMsg
             '进度条重置
             ProgressBar1.Value = 0
             Exit Sub
@@ -670,12 +664,11 @@ Public Class Form1
         Catch ex As Exception
             MsgBox("调用Boundaries_toExcel.exe失败，请检查后重试")
             TextBoxMsg = TextBoxMsg + "调用Boundaries_toExcel.exe失败，请检查后重试" + Chr(13) + Chr(10)
-            TextBox1.Text = TextBoxMsg
+            TextResult.Text = TextBoxMsg
             Return 0
         End Try
         Return pid
     End Function
-
 
     '@StartDate 开始时间
     '@EndDate 结束时间
@@ -765,8 +758,8 @@ Public Class Form1
         BarThread.Abort()
     End Sub
 
-
-    Private Sub SelectManageExcel(sender As Object, e As EventArgs) Handles Button7.Click
+    'button 选择经营数据目标文件
+    Private Sub SelectManageExcel(sender As Object, e As EventArgs) Handles SelectManageExcelButton.Click
         If OpenFileDialog4.ShowDialog() = DialogResult.OK Then
             If IsFileReady(ManageExcelPath) = False Then
                 MsgBox("目标Excel文件被占用。")
@@ -779,12 +772,13 @@ Public Class Form1
                     MsgBox("打开文件失败！")
                 End Try
                 TextBoxMsg = TextBoxMsg + "当前经营数据文件：" + ManageExcelPath.ToString + Chr(13) + Chr(10)
-                TextBox1.Text = TextBoxMsg
+                TextResult.Text = TextBoxMsg
             End If
         End If
     End Sub
 
-    Private Sub UpdateManageData2EFC(sender As Object, e As EventArgs) Handles Button8.Click
+    'button 写入经营数据
+    Private Sub UpdateManageData2EFC(sender As Object, e As EventArgs) Handles UpdateManageDataButton.Click
         '判断是否已连接力控数据库
         If ConnStatus = True Then
             '文件名
@@ -851,7 +845,7 @@ Public Class Form1
             objExcelFile = Nothing
             MsgBox("运营数据写入完成！")
             TextBoxMsg = TextBoxMsg + "文件：" + ManageExcelPath.ToString + "中运营数据已写入力控数据库" + Chr(13) + Chr(10)
-            TextBox1.Text = TextBoxMsg
+            TextResult.Text = TextBoxMsg
         Else
             MsgBox("数据库未连接！")
         End If
@@ -859,7 +853,8 @@ Public Class Form1
         ProgressBar1.Value = 0
     End Sub
 
-    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+    '管理员模式
+    Private Sub ActivateAdminMode(sender As Object, e As EventArgs) Handles AdminModeButton.Click
         Dim FormDlg As Form2
         FormDlg = New Form2 With {
             .Owner = Me
@@ -870,133 +865,125 @@ Public Class Form1
         End If
     End Sub
 
-    '打开ModelConfig文件，并根据@name和@inTagsData字段生成Boundaries.xlsx模板文件
-    '<Obsolete("此方法弃用，使用Boundaries_2Excel.exe生成边界值表格")>
-    'Private Function ModelCfg2Excel()
-    'If OpenFileDialog2.ShowDialog() = DialogResult.OK Then
-    '    Dim CfgDataList As New List(Of CfgSectionData)
-    '    Dim SectionList As List(Of String)
-    '    CfgPath = OpenFileDialog2.FileName 'cfg文件路径
-    '    SectionList = GetCfgAllSections() '获取所有Section，即model1、model2……
-    '    '从每个section中获取对应的@name和@inTagsData值
-    '    For Each Section As String In SectionList
-    '        Dim ModelName As String = GetKey(Section, "name").ElementAt(0)
-    '        Dim Tags As List(Of String) = GetKey(Section, "inTagsData")
-    '        Dim SectionData As New CfgSectionData(Section, ModelName, Tags)
-    '        CfgDataList.Add(SectionData)
-    '    Next
-    '    '初始化Excel实例
-    '    Dim ExcelFile As Excel.Application
-    '    Dim WorkBook As Excel.Workbook
-    '    ExcelFile = New Excel.Application With {
-    '        .Visible = False,
-    '        .DisplayAlerts = False
-    '    }
-    '    WorkBook = ExcelFile.Workbooks.Add
-    '    '创建Excel工作表时是根据当前表向前创建，所以需要将CfgDataList倒序
-    '    CfgDataList.Reverse()
-    '    '根据@name建立新工作表，根据@inTagsData填充工作表
-    '    For Each SectionData As CfgSectionData In CfgDataList
-    '        Dim ModelName As String = SectionData.ModelName
-    '        Dim Tags As List(Of String) = SectionData.Tags
-    '        Dim WorkSheet_PC1_H As Excel.Worksheet
-    '        Dim WorkSheet_PC1_L As Excel.Worksheet
-    '        Dim WorkSheet_PC2_H As Excel.Worksheet
-    '        Dim WorkSheet_PC2_L As Excel.Worksheet
-    '        Dim WorkSheet_PC3_H As Excel.Worksheet
-    '        Dim WorkSheet_PC3_L As Excel.Worksheet
-    '        '从3-1的顺序建立新工作表
-    '        WorkSheet_PC3_L = ExcelFile.ActiveWorkbook.Worksheets.Add
-    '        WorkSheet_PC3_L.Name = ModelName + "_PC3_Low"
-    '        '插入数据前先激活工作表
-    '        WorkSheet_PC3_L.Activate()
-    '        Dim Index As Integer = 1
-    '        'PC3_L为第一个表，所以插入初始化数据，后续工作表依次复制
-    '        For Each Tag As String In Tags
-    '            WorkSheet_PC3_L.Cells(Index + 1, 1) = Tag
-    '            WorkSheet_PC3_L.Cells(Index + 1, 2) = Index.ToString
-    '            Index += 1
-    '        Next
-    '        WorkSheet_PC3_L.Cells(1, 1) = ModelName
-    '        WorkSheet_PC3_L.Cells(1, 2) = "PV"
-    '        WorkSheet_PC3_L.Range("A1:A" + Index.ToString).Font.Bold = True
-    '        Dim CopyRange As String = "A1:B" + Index.ToString '复制区间
-    '        '新建表，复制，重命名新表，激活新建的表为下一次复制做准备
-    '        WorkSheet_PC3_H = ExcelFile.ActiveWorkbook.Worksheets.Add
-    '        WorkSheet_PC3_L.Range(CopyRange).Copy(WorkSheet_PC3_H.Range("A1:A" + Index.ToString))
-    '        WorkSheet_PC3_H.Name = ModelName + "_PC3_High"
-    '        WorkSheet_PC3_H.Activate()
+    'Button 选择插入历史数据文件
+    Private Sub SelectInsertHisDataExcel(sender As Object, e As EventArgs) Handles SelectInsertHisDataExcelButton.Click
+        If OpenFileDialog5.ShowDialog() = DialogResult.OK Then
+            If IsFileReady(InsertHisDataExcelPath) = False Then
+                MsgBox("目标Excel文件被占用。")
+                Exit Sub
+            Else
+                InsertHisDataExcelPath = OpenFileDialog5.FileName 'Excel文件路径
+                Try
+                    System.Diagnostics.Process.Start(InsertHisDataExcelPath)
+                Catch ex As Exception
+                    MsgBox("打开文件失败！")
+                End Try
+                TextBoxMsg = TextBoxMsg + "当前历史数据文件：" + InsertHisDataExcelPath.ToString + Chr(13) + Chr(10)
+                TextResult.Text = TextBoxMsg
+            End If
+        End If
+    End Sub
 
-    '        WorkSheet_PC2_L = ExcelFile.ActiveWorkbook.Worksheets.Add
-    '        WorkSheet_PC3_H.Range(CopyRange).Copy(WorkSheet_PC2_L.Range("A1:A" + Index.ToString))
-    '        WorkSheet_PC2_L.Name = ModelName + "_PC2_Low"
-    '        WorkSheet_PC2_L.Activate()
+    'Button 插入历史数据
+    Private Sub InsertHisData(sender As Object, e As EventArgs) Handles InsertHisDataButton.Click
+        If ConnStatus = True Then
+            If InsertHisDataExcelPath = Nothing Or InsertHisDataExcelPath = "" Then
+                MsgBox("请先选择文件")
+                ProgressBar1.Value = 0
+                Exit Sub
+            End If
+            If IsFileReady(InsertHisDataExcelPath) = False Then
+                MsgBox("目标Excel文件被占用")
+                ProgressBar1.Value = 0
+                Exit Sub
+            End If
+            CreateTread4Bar()
+            Dim objExcelFile As Excel.Application
+            Dim objWorkBook As Excel.Workbook
+            Dim objImportSheet As Excel.Worksheet
+            '创建Excel进程, 并打开目标Excel文件
+            objExcelFile = New Excel.Application With {
+                .DisplayAlerts = False,
+                .Visible = False
+            }
+            objWorkBook = objExcelFile.Workbooks.Open(InsertHisDataExcelPath)
+            objImportSheet = objWorkBook.Sheets(1) '取第1个工作表
+            Dim LastColNum As Integer = objImportSheet.UsedRange.Columns.Count '最后有数据的列号
+            Dim LastRowNum As Integer = objImportSheet.UsedRange.Rows.Count '最后有数据的行号
 
-    '        WorkSheet_PC2_H = ExcelFile.ActiveWorkbook.Worksheets.Add
-    '        WorkSheet_PC2_L.Range(CopyRange).Copy(WorkSheet_PC2_H.Range("A1:A" + Index.ToString))
-    '        WorkSheet_PC2_H.Name = ModelName + "_PC2_High"
-    '        WorkSheet_PC2_H.Activate()
+            Try
+                For RowNum As Integer = 2 To LastRowNum Step 1
+                    Dim oTagname As String 'col1
+                    Dim oDate As Date 'col3
+                    Dim oMillisecond As Integer 'col4
+                    Dim oHisData As Single 'col2
 
-    '        WorkSheet_PC1_L = ExcelFile.ActiveWorkbook.Worksheets.Add
-    '        WorkSheet_PC2_H.Range(CopyRange).Copy(WorkSheet_PC1_L.Range("A1:A" + Index.ToString))
-    '        WorkSheet_PC1_L.Name = ModelName + "_PC1_Low"
-    '        WorkSheet_PC1_L.Activate()
+                    oTagname = IIf(objImportSheet.Cells(RowNum, 1).value = Nothing, Nothing, objImportSheet.Cells(RowNum, 1).value.ToString)
+                    If oTagname = Nothing Then
+                        Continue For
+                    End If
+                    oHisData = IIf(objImportSheet.Cells(RowNum, 2).value = Nothing, Nothing, CSng(objImportSheet.Cells(RowNum, 2).value.ToString))
+                    oDate = IIf(objImportSheet.Cells(RowNum, 3).value = Nothing, Nothing, CDate(objImportSheet.Cells(RowNum, 3).value.ToString))
+                    oMillisecond = IIf(objImportSheet.Cells(RowNum, 4).value = Nothing, Nothing, CInt(objImportSheet.Cells(RowNum, 4).value.ToString))
+                    If oHisData = Nothing Or oDate = Nothing Then
+                        MsgBox("第" + RowNum.ToString + "行的数据有空值！")
+                        TextBoxMsg += "文件:" + InsertHisDataExcelPath + "中第" + RowNum.ToString + "行的数据有空值！"
+                        Continue For
+                    ElseIf oMillisecond > 999 Or oMillisecond < 0 Then
+                        MsgBox("第" + RowNum.ToString + "行的Millisecond数据有误！")
+                        TextBoxMsg += "文件:" + InsertHisDataExcelPath + "中第" + RowNum.ToString + "行的Millisecond数据有误！"
+                        Continue For
+                    End If
 
-    '        WorkSheet_PC1_H = ExcelFile.ActiveWorkbook.Worksheets.Add
-    '        WorkSheet_PC1_L.Range(CopyRange).Copy(WorkSheet_PC1_H.Range("A1:A" + Index.ToString))
-    '        WorkSheet_PC1_H.Name = ModelName + "_PC1_High"
+                    Dim iTagname As String = oTagname
+                    Dim iDate As Object = oDate
+                    Dim iMillisecond As Integer = oMillisecond
+                    Dim iHisData As Single = oHisData
 
-    '    Next
-    '    WorkBook.Worksheets("Sheet1").Delete() '删除新建Excel时的系统默认表
-    '    WorkBook.SaveAs(OpenFileDialog2.InitialDirectory + "\test.xlsx") '另存为当前路径下
-    '    '关闭Excel实例并释放资源
-    '    ExcelFile.ActiveWorkbook.Close(SaveChanges:=True)
-    '    ExcelFile.Quit()
-    '    WorkBook = Nothing
-    '    ExcelFile = Nothing
-    '    '打开新建的Excel模板
-    '    Try
-    '        System.Diagnostics.Process.Start(OpenFileDialog2.InitialDirectory + "\test.xlsx")
-    '    Catch ex As Exception
-    '        MsgBox("打开文件失败！")
-    '    End Try
-    'End If
-    'Return Nothing
-    'End Function
-    'Private Function GetCfgAllSections() As List(Of String)
-    '    Dim SectionList As List(Of String)
-    '    Dim SectionBufferText As New String(" ", 2048)
-    '    Dim Length As Integer = GetPrivateProfileString(Nothing, Nothing, Nothing, SectionBufferText, 2048, CfgPath)
-    '    SectionList = SectionBufferText.Split(vbNullChar).ToList
-    '    SectionList = RemoveNullString(SectionList)
-    '    Return SectionList
-    'End Function
+                    Dim InsertResult As Integer
+                    InsertResult = DbCommOcxFC7.InsertHisData(iTagname, iDate, iMillisecond, iHisData)
+                    If InsertResult = 0 Then
+                        MsgBox("第" + RowNum.ToString + "行的数据插入失败！")
+                        TextBoxMsg += "文件:" + InsertHisDataExcelPath + "中第" + RowNum.ToString + "行的数据插入失败！"
+                        Continue For
+                    End If
+                    If ProgressBar1.Value + (90 \ LastRowNum) <= ProgressBar1.Maximum Then
+                        ProgressBar1.Value = ProgressBar1.Value + (90 \ LastRowNum)
+                        ProgressBar1.PerformStep()
+                    End If
+                Next
+                MsgBox("历史数据插入完成！")
+                TextBoxMsg += "文件:" + InsertHisDataExcelPath + "中历史数据已插入力控数据库"
+                TextResult.Text = TextBoxMsg
+            Catch ex As Exception
+                MsgBox(ex.Message)
+                objExcelFile.ActiveWorkbook.Close(SaveChanges:=False)
+                objExcelFile.Quit()
+            End Try
+            If ProgressBar1.Value < ProgressBar1.Maximum Then
+                ProgressBar1.Value = ProgressBar1.Maximum
+                ProgressBar1.PerformStep()
+            End If
+            '关闭Excel进程并释放资源
+            objExcelFile.ActiveWorkbook.Close(SaveChanges:=True)
+            objExcelFile.Quit()
+            objWorkBook = Nothing
+            objImportSheet = Nothing
+            objExcelFile = Nothing
+        Else
+            MsgBox("数据库未连接！")
+        End If
+    End Sub
 
-    'Private Function GetKey(ByVal SectionName As String, ByVal KeyName As String) As List(Of String)
-    '    Dim KeyBufferText As New String(" ", 2048)
-    '    Dim Length As Integer = GetPrivateProfileString(SectionName, KeyName, vbNullString, KeyBufferText, 2048, CfgPath)
-    '    Dim KeyList As List(Of String)
-    '    KeyList = KeyBufferText.Split(vbNullChar).ToList.ElementAt(0).Split(",").ToList
-    '    KeyList = RemoveNullString(KeyList)
-    '    Return KeyList
-    'End Function
-
-    'Private Function RemoveNullString(ByRef OriginList As List(Of String)) As List(Of String)
-    '    Dim NullStringList As New List(Of Integer)
-    '    For Each Element As String In OriginList
-    '        If Element Is Nothing Or Element = vbNullString Then
-    '            NullStringList.Add(OriginList.IndexOf(Element))
-    '        ElseIf Element.Trim = "" Then
-    '            NullStringList.Add(OriginList.IndexOf(Element))
-    '        End If
-    '    Next
-    '    NullStringList.Reverse()
-    '    For Each NullStringIndex As Integer In NullStringList
-    '        OriginList.RemoveAt(NullStringIndex)
-    '    Next
-    '    Return OriginList
-    'End Function
-
-    '初始化
-
+    <Obsolete>
+    Private Sub Button10_Click(sender As Object, e As EventArgs)
+        Dim Form3Dlg As Form3
+        If ConnStatus = True Then
+            Form3Dlg = New Form3()
+            Form3Dlg.SetDbCommOcxFC7(DbCommOcxFC7)
+            Form3Dlg.ShowDialog()
+        Else
+            MsgBox("数据库未连接！")
+        End If
+    End Sub
 End Class

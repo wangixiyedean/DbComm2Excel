@@ -9,9 +9,10 @@
             frm1 = Me.Owner
             frm1.AdminMode = True
             frm1.TextBox2.Visible = True
-            frm1.Button9.Visible = False
-            frm1.Button3.Enabled = True
-            frm1.Button8.Enabled = True
+            frm1.AdminModeButton.Visible = False
+            frm1.UpdateBoundariesButton.Enabled = True
+            frm1.UpdateManageDataButton.Enabled = True
+            frm1.InsertHisDataButton.Enabled = True
             Me.Close()
         Else
             MsgBox("密码错误！")

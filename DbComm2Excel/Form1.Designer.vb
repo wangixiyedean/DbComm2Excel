@@ -31,28 +31,32 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CmdDisconn = New System.Windows.Forms.Button()
         Me.CmdRemotConn = New System.Windows.Forms.Button()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.TextResult = New System.Windows.Forms.TextBox()
+        Me.SelectReadDataExcelButton = New System.Windows.Forms.Button()
+        Me.ReadHisDataButton = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.UpdateBoundariesButton = New System.Windows.Forms.Button()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.GetBoundariesTagsButton = New System.Windows.Forms.Button()
         Me.OpenFileDialog3 = New System.Windows.Forms.OpenFileDialog()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.GenerateBoundariesButton = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Button6 = New System.Windows.Forms.Button()
+        Me.ReadRealTimeDataButton = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Button7 = New System.Windows.Forms.Button()
+        Me.UpdateManageDataButton = New System.Windows.Forms.Button()
+        Me.SelectManageExcelButton = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.OpenFileDialog4 = New System.Windows.Forms.OpenFileDialog()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Button9 = New System.Windows.Forms.Button()
+        Me.AdminModeButton = New System.Windows.Forms.Button()
+        Me.OpenFileDialog5 = New System.Windows.Forms.OpenFileDialog()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.InsertHisDataButton = New System.Windows.Forms.Button()
+        Me.SelectInsertHisDataExcelButton = New System.Windows.Forms.Button()
         Me.DbCommOcxFC7 = New AxDBCOMMOCXLibFC7.AxDbCommOcxFC7()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -60,6 +64,7 @@ Partial Class Form1
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
         CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -67,7 +72,7 @@ Partial Class Form1
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label4.Location = New System.Drawing.Point(26, 137)
+        Me.Label4.Location = New System.Drawing.Point(26, 129)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(74, 21)
         Me.Label4.TabIndex = 12
@@ -77,7 +82,7 @@ Partial Class Form1
         '
         Me.ConnResult.Cursor = System.Windows.Forms.Cursors.Default
         Me.ConnResult.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.ConnResult.Location = New System.Drawing.Point(130, 134)
+        Me.ConnResult.Location = New System.Drawing.Point(130, 126)
         Me.ConnResult.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.ConnResult.Name = "ConnResult"
         Me.ConnResult.ReadOnly = True
@@ -88,7 +93,7 @@ Partial Class Form1
         'TxtPort
         '
         Me.TxtPort.Font = New System.Drawing.Font("宋体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.TxtPort.Location = New System.Drawing.Point(130, 78)
+        Me.TxtPort.Location = New System.Drawing.Point(130, 73)
         Me.TxtPort.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.TxtPort.Name = "TxtPort"
         Me.TxtPort.Size = New System.Drawing.Size(140, 26)
@@ -109,7 +114,7 @@ Partial Class Form1
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label2.Location = New System.Drawing.Point(26, 78)
+        Me.Label2.Location = New System.Drawing.Point(26, 73)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(42, 21)
         Me.Label2.TabIndex = 7
@@ -130,11 +135,11 @@ Partial Class Form1
         Me.CmdDisconn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.CmdDisconn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.CmdDisconn.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.CmdDisconn.Location = New System.Drawing.Point(19, 181)
+        Me.CmdDisconn.Location = New System.Drawing.Point(19, 176)
         Me.CmdDisconn.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.CmdDisconn.Name = "CmdDisconn"
         Me.CmdDisconn.Size = New System.Drawing.Size(120, 50)
-        Me.CmdDisconn.TabIndex = 5
+        Me.CmdDisconn.TabIndex = 1
         Me.CmdDisconn.Text = "关闭连接"
         Me.CmdDisconn.UseVisualStyleBackColor = True
         '
@@ -143,50 +148,51 @@ Partial Class Form1
         Me.CmdRemotConn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.CmdRemotConn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.CmdRemotConn.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.CmdRemotConn.Location = New System.Drawing.Point(164, 181)
+        Me.CmdRemotConn.Location = New System.Drawing.Point(164, 176)
         Me.CmdRemotConn.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.CmdRemotConn.Name = "CmdRemotConn"
         Me.CmdRemotConn.Size = New System.Drawing.Size(120, 50)
-        Me.CmdRemotConn.TabIndex = 1
+        Me.CmdRemotConn.TabIndex = 0
         Me.CmdRemotConn.Text = "远程连接"
         Me.CmdRemotConn.UseVisualStyleBackColor = True
         '
-        'TextBox1
+        'TextResult
         '
-        Me.TextBox1.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(6, 30)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TextBox1.Size = New System.Drawing.Size(905, 223)
-        Me.TextBox1.TabIndex = 13
+        Me.TextResult.Font = New System.Drawing.Font("微软雅黑", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.TextResult.Location = New System.Drawing.Point(9, 26)
+        Me.TextResult.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
+        Me.TextResult.Multiline = True
+        Me.TextResult.Name = "TextResult"
+        Me.TextResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.TextResult.Size = New System.Drawing.Size(577, 205)
+        Me.TextResult.TabIndex = 13
         '
-        'Button1
+        'SelectReadDataExcelButton
         '
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button1.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Button1.Location = New System.Drawing.Point(42, 28)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(120, 50)
-        Me.Button1.TabIndex = 14
-        Me.Button1.Text = "选择文件"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.SelectReadDataExcelButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SelectReadDataExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.SelectReadDataExcelButton.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.SelectReadDataExcelButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SelectReadDataExcelButton.Location = New System.Drawing.Point(24, 28)
+        Me.SelectReadDataExcelButton.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
+        Me.SelectReadDataExcelButton.Name = "SelectReadDataExcelButton"
+        Me.SelectReadDataExcelButton.Size = New System.Drawing.Size(120, 50)
+        Me.SelectReadDataExcelButton.TabIndex = 2
+        Me.SelectReadDataExcelButton.Text = "选择文件"
+        Me.SelectReadDataExcelButton.UseVisualStyleBackColor = True
         '
-        'Button2
+        'ReadHisDataButton
         '
-        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button2.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Button2.Location = New System.Drawing.Point(42, 103)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(120, 50)
-        Me.Button2.TabIndex = 15
-        Me.Button2.Text = "读取历史数据"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.ReadHisDataButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ReadHisDataButton.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.ReadHisDataButton.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.ReadHisDataButton.Location = New System.Drawing.Point(24, 98)
+        Me.ReadHisDataButton.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
+        Me.ReadHisDataButton.Name = "ReadHisDataButton"
+        Me.ReadHisDataButton.Size = New System.Drawing.Size(120, 50)
+        Me.ReadHisDataButton.TabIndex = 3
+        Me.ReadHisDataButton.Text = "读取历史数据"
+        Me.ReadHisDataButton.UseVisualStyleBackColor = True
         '
         'OpenFileDialog1
         '
@@ -194,59 +200,59 @@ Partial Class Form1
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 540)
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 525)
         Me.ProgressBar1.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(918, 30)
+        Me.ProgressBar1.Size = New System.Drawing.Size(798, 25)
         Me.ProgressBar1.TabIndex = 16
         '
-        'Button3
+        'UpdateBoundariesButton
         '
-        Me.Button3.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button3.Enabled = False
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button3.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Button3.Location = New System.Drawing.Point(36, 181)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(125, 50)
-        Me.Button3.TabIndex = 18
-        Me.Button3.Text = "写入边界点值"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.UpdateBoundariesButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.UpdateBoundariesButton.Enabled = False
+        Me.UpdateBoundariesButton.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.UpdateBoundariesButton.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.UpdateBoundariesButton.Location = New System.Drawing.Point(19, 176)
+        Me.UpdateBoundariesButton.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
+        Me.UpdateBoundariesButton.Name = "UpdateBoundariesButton"
+        Me.UpdateBoundariesButton.Size = New System.Drawing.Size(125, 50)
+        Me.UpdateBoundariesButton.TabIndex = 11
+        Me.UpdateBoundariesButton.Text = "写入边界点值"
+        Me.UpdateBoundariesButton.UseVisualStyleBackColor = True
         '
         'OpenFileDialog2
         '
         Me.OpenFileDialog2.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
         '
-        'Button4
+        'GetBoundariesTagsButton
         '
-        Me.Button4.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button4.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Button4.Location = New System.Drawing.Point(36, 103)
-        Me.Button4.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(125, 50)
-        Me.Button4.TabIndex = 20
-        Me.Button4.Text = "获取边界点名"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.GetBoundariesTagsButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.GetBoundariesTagsButton.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.GetBoundariesTagsButton.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.GetBoundariesTagsButton.Location = New System.Drawing.Point(19, 98)
+        Me.GetBoundariesTagsButton.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
+        Me.GetBoundariesTagsButton.Name = "GetBoundariesTagsButton"
+        Me.GetBoundariesTagsButton.Size = New System.Drawing.Size(125, 50)
+        Me.GetBoundariesTagsButton.TabIndex = 7
+        Me.GetBoundariesTagsButton.Text = "获取边界点名"
+        Me.GetBoundariesTagsButton.UseVisualStyleBackColor = True
         '
         'OpenFileDialog3
         '
         Me.OpenFileDialog3.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
         '
-        'Button5
+        'GenerateBoundariesButton
         '
-        Me.Button5.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button5.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Button5.Location = New System.Drawing.Point(36, 28)
-        Me.Button5.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(125, 50)
-        Me.Button5.TabIndex = 21
-        Me.Button5.Text = "生成边界点表"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.GenerateBoundariesButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.GenerateBoundariesButton.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.GenerateBoundariesButton.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.GenerateBoundariesButton.Location = New System.Drawing.Point(19, 28)
+        Me.GenerateBoundariesButton.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
+        Me.GenerateBoundariesButton.Name = "GenerateBoundariesButton"
+        Me.GenerateBoundariesButton.Size = New System.Drawing.Size(125, 50)
+        Me.GenerateBoundariesButton.TabIndex = 6
+        Me.GenerateBoundariesButton.Text = "生成边界点表"
+        Me.GenerateBoundariesButton.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -263,94 +269,94 @@ Partial Class Form1
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 6, 3, 6)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 6, 3, 6)
-        Me.GroupBox1.Size = New System.Drawing.Size(300, 250)
+        Me.GroupBox1.Size = New System.Drawing.Size(300, 240)
         Me.GroupBox1.TabIndex = 22
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "连接属性"
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.Button6)
-        Me.GroupBox2.Controls.Add(Me.Button1)
-        Me.GroupBox2.Controls.Add(Me.Button2)
-        Me.GroupBox2.Location = New System.Drawing.Point(730, 15)
+        Me.GroupBox2.Controls.Add(Me.ReadRealTimeDataButton)
+        Me.GroupBox2.Controls.Add(Me.SelectReadDataExcelButton)
+        Me.GroupBox2.Controls.Add(Me.ReadHisDataButton)
+        Me.GroupBox2.Location = New System.Drawing.Point(650, 15)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(3, 6, 3, 6)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(3, 6, 3, 6)
-        Me.GroupBox2.Size = New System.Drawing.Size(200, 250)
+        Me.GroupBox2.Size = New System.Drawing.Size(160, 240)
         Me.GroupBox2.TabIndex = 23
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "读取数据"
         '
-        'Button6
+        'ReadRealTimeDataButton
         '
-        Me.Button6.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button6.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button6.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Button6.Location = New System.Drawing.Point(42, 181)
-        Me.Button6.Margin = New System.Windows.Forms.Padding(3, 6, 3, 6)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(120, 50)
-        Me.Button6.TabIndex = 16
-        Me.Button6.Text = "读取实时数据"
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.ReadRealTimeDataButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ReadRealTimeDataButton.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.ReadRealTimeDataButton.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.ReadRealTimeDataButton.Location = New System.Drawing.Point(24, 176)
+        Me.ReadRealTimeDataButton.Margin = New System.Windows.Forms.Padding(3, 6, 3, 6)
+        Me.ReadRealTimeDataButton.Name = "ReadRealTimeDataButton"
+        Me.ReadRealTimeDataButton.Size = New System.Drawing.Size(120, 50)
+        Me.ReadRealTimeDataButton.TabIndex = 4
+        Me.ReadRealTimeDataButton.Text = "读取实时数据"
+        Me.ReadRealTimeDataButton.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.Button4)
-        Me.GroupBox3.Controls.Add(Me.Button3)
-        Me.GroupBox3.Controls.Add(Me.Button5)
+        Me.GroupBox3.Controls.Add(Me.GetBoundariesTagsButton)
+        Me.GroupBox3.Controls.Add(Me.UpdateBoundariesButton)
+        Me.GroupBox3.Controls.Add(Me.GenerateBoundariesButton)
         Me.GroupBox3.Location = New System.Drawing.Point(318, 15)
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(3, 6, 3, 6)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(3, 6, 3, 6)
-        Me.GroupBox3.Size = New System.Drawing.Size(200, 250)
+        Me.GroupBox3.Size = New System.Drawing.Size(160, 240)
         Me.GroupBox3.TabIndex = 24
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "边界数值"
         '
         'GroupBox4
         '
-        Me.GroupBox4.Controls.Add(Me.Button8)
-        Me.GroupBox4.Controls.Add(Me.Button7)
-        Me.GroupBox4.Location = New System.Drawing.Point(524, 15)
+        Me.GroupBox4.Controls.Add(Me.UpdateManageDataButton)
+        Me.GroupBox4.Controls.Add(Me.SelectManageExcelButton)
+        Me.GroupBox4.Location = New System.Drawing.Point(484, 15)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(200, 163)
+        Me.GroupBox4.Size = New System.Drawing.Size(160, 240)
         Me.GroupBox4.TabIndex = 25
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "经营数值"
         '
-        'Button8
+        'UpdateManageDataButton
         '
-        Me.Button8.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button8.Enabled = False
-        Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button8.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Button8.Location = New System.Drawing.Point(40, 103)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(126, 50)
-        Me.Button8.TabIndex = 19
-        Me.Button8.Text = "写入经营数据"
-        Me.Button8.UseVisualStyleBackColor = True
+        Me.UpdateManageDataButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.UpdateManageDataButton.Enabled = False
+        Me.UpdateManageDataButton.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.UpdateManageDataButton.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.UpdateManageDataButton.Location = New System.Drawing.Point(17, 176)
+        Me.UpdateManageDataButton.Name = "UpdateManageDataButton"
+        Me.UpdateManageDataButton.Size = New System.Drawing.Size(126, 50)
+        Me.UpdateManageDataButton.TabIndex = 10
+        Me.UpdateManageDataButton.Text = "写入经营数据"
+        Me.UpdateManageDataButton.UseVisualStyleBackColor = True
         '
-        'Button7
+        'SelectManageExcelButton
         '
-        Me.Button7.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button7.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button7.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Button7.Location = New System.Drawing.Point(40, 28)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(125, 50)
-        Me.Button7.TabIndex = 18
-        Me.Button7.Text = "选择文件"
-        Me.Button7.UseVisualStyleBackColor = True
+        Me.SelectManageExcelButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SelectManageExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.SelectManageExcelButton.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.SelectManageExcelButton.Location = New System.Drawing.Point(18, 28)
+        Me.SelectManageExcelButton.Name = "SelectManageExcelButton"
+        Me.SelectManageExcelButton.Size = New System.Drawing.Size(125, 50)
+        Me.SelectManageExcelButton.TabIndex = 5
+        Me.SelectManageExcelButton.Text = "选择文件"
+        Me.SelectManageExcelButton.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
-        Me.GroupBox5.Controls.Add(Me.TextBox1)
-        Me.GroupBox5.Location = New System.Drawing.Point(12, 271)
+        Me.GroupBox5.Controls.Add(Me.TextResult)
+        Me.GroupBox5.Location = New System.Drawing.Point(218, 274)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(918, 263)
+        Me.GroupBox5.Size = New System.Drawing.Size(592, 241)
         Me.GroupBox5.TabIndex = 26
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "输出结果"
@@ -362,8 +368,8 @@ Partial Class Form1
         'GroupBox6
         '
         Me.GroupBox6.Controls.Add(Me.TextBox2)
-        Me.GroupBox6.Controls.Add(Me.Button9)
-        Me.GroupBox6.Location = New System.Drawing.Point(524, 185)
+        Me.GroupBox6.Controls.Add(Me.AdminModeButton)
+        Me.GroupBox6.Location = New System.Drawing.Point(12, 264)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(200, 80)
         Me.GroupBox6.TabIndex = 27
@@ -382,17 +388,55 @@ Partial Class Form1
         Me.TextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.TextBox2.Visible = False
         '
-        'Button9
+        'AdminModeButton
         '
-        Me.Button9.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button9.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button9.Font = New System.Drawing.Font("微软雅黑", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Button9.Location = New System.Drawing.Point(38, 26)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(130, 38)
-        Me.Button9.TabIndex = 0
-        Me.Button9.Text = "进入管理员模式"
-        Me.Button9.UseVisualStyleBackColor = True
+        Me.AdminModeButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.AdminModeButton.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.AdminModeButton.Font = New System.Drawing.Font("微软雅黑", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.AdminModeButton.Location = New System.Drawing.Point(31, 26)
+        Me.AdminModeButton.Name = "AdminModeButton"
+        Me.AdminModeButton.Size = New System.Drawing.Size(140, 40)
+        Me.AdminModeButton.TabIndex = 9
+        Me.AdminModeButton.Text = "进入管理员模式"
+        Me.AdminModeButton.UseVisualStyleBackColor = True
+        '
+        'OpenFileDialog5
+        '
+        Me.OpenFileDialog5.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.Controls.Add(Me.InsertHisDataButton)
+        Me.GroupBox7.Controls.Add(Me.SelectInsertHisDataExcelButton)
+        Me.GroupBox7.Location = New System.Drawing.Point(12, 350)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(200, 165)
+        Me.GroupBox7.TabIndex = 28
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "插入历史数据"
+        '
+        'InsertHisDataButton
+        '
+        Me.InsertHisDataButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.InsertHisDataButton.Enabled = False
+        Me.InsertHisDataButton.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.InsertHisDataButton.Location = New System.Drawing.Point(38, 97)
+        Me.InsertHisDataButton.Name = "InsertHisDataButton"
+        Me.InsertHisDataButton.Size = New System.Drawing.Size(126, 50)
+        Me.InsertHisDataButton.TabIndex = 12
+        Me.InsertHisDataButton.Text = "插入历史数据"
+        Me.InsertHisDataButton.UseVisualStyleBackColor = True
+        '
+        'SelectInsertHisDataExcelButton
+        '
+        Me.SelectInsertHisDataExcelButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SelectInsertHisDataExcelButton.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.SelectInsertHisDataExcelButton.Location = New System.Drawing.Point(38, 30)
+        Me.SelectInsertHisDataExcelButton.Name = "SelectInsertHisDataExcelButton"
+        Me.SelectInsertHisDataExcelButton.Size = New System.Drawing.Size(125, 50)
+        Me.SelectInsertHisDataExcelButton.TabIndex = 8
+        Me.SelectInsertHisDataExcelButton.Text = "选择文件"
+        Me.SelectInsertHisDataExcelButton.UseVisualStyleBackColor = True
         '
         'DbCommOcxFC7
         '
@@ -409,7 +453,8 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(944, 581)
+        Me.ClientSize = New System.Drawing.Size(824, 561)
+        Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
@@ -434,6 +479,7 @@ Partial Class Form1
         Me.GroupBox5.PerformLayout()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
+        Me.GroupBox7.ResumeLayout(False)
         CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -446,27 +492,31 @@ Partial Class Form1
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents CmdDisconn As System.Windows.Forms.Button
     Friend WithEvents CmdRemotConn As System.Windows.Forms.Button
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents TextResult As System.Windows.Forms.TextBox
+    Friend WithEvents SelectReadDataExcelButton As System.Windows.Forms.Button
+    Friend WithEvents ReadHisDataButton As System.Windows.Forms.Button
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents DbCommOcxFC7 As AxDBCOMMOCXLibFC7.AxDbCommOcxFC7
-    Friend WithEvents Button3 As Button
+    Friend WithEvents UpdateBoundariesButton As Button
     Friend WithEvents OpenFileDialog2 As OpenFileDialog
-    Friend WithEvents Button4 As Button
+    Friend WithEvents GetBoundariesTagsButton As Button
     Friend WithEvents OpenFileDialog3 As OpenFileDialog
-    Friend WithEvents Button5 As Button
+    Friend WithEvents GenerateBoundariesButton As Button
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents Button6 As Button
+    Friend WithEvents ReadRealTimeDataButton As Button
     Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents Button8 As Button
-    Friend WithEvents Button7 As Button
+    Friend WithEvents UpdateManageDataButton As Button
+    Friend WithEvents SelectManageExcelButton As Button
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents OpenFileDialog4 As OpenFileDialog
     Friend WithEvents GroupBox6 As GroupBox
-    Friend WithEvents Button9 As Button
+    Friend WithEvents AdminModeButton As Button
     Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents OpenFileDialog5 As OpenFileDialog
+    Friend WithEvents GroupBox7 As GroupBox
+    Friend WithEvents InsertHisDataButton As Button
+    Friend WithEvents SelectInsertHisDataExcelButton As Button
 End Class
