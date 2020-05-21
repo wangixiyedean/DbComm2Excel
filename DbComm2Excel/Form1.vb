@@ -372,7 +372,6 @@ Public Class Form1
                             ProgressBar1.PerformStep()
                         End If
                     Catch ex As Exception
-                        objExcelFile.ActiveWorkbook.Close(SaveChanges:=True)
                         objExcelFile.Quit()
                         objWorkBook = Nothing
                         objExcelFile = Nothing
@@ -382,7 +381,6 @@ Public Class Form1
                     ProgressBar1.Value = ProgressBar1.Maximum
                     ProgressBar1.PerformStep()
                 End If
-                objExcelFile.ActiveWorkbook.Close(SaveChanges:=True)
                 objExcelFile.Quit()
                 objWorkBook = Nothing
                 objExcelFile = Nothing
@@ -840,7 +838,6 @@ Public Class Form1
                 Next
             Catch ex As Exception
                 MsgBox(ex.Message)
-                objExcelFile.ActiveWorkbook.Close(SaveChanges:=True)
                 objExcelFile.Quit()
                 objWorkBook = Nothing
                 objExcelFile = Nothing
@@ -849,7 +846,6 @@ Public Class Form1
                 ProgressBar1.Value = ProgressBar1.Maximum
                 ProgressBar1.PerformStep()
             End If
-            objExcelFile.ActiveWorkbook.Close(SaveChanges:=True)
             objExcelFile.Quit()
             objWorkBook = Nothing
             objExcelFile = Nothing
@@ -930,22 +926,23 @@ Public Class Form1
                     Dim oMillisecond As Integer 'col4
                     Dim oHisData As Single 'col2
 
-                    oTagname = IIf(objImportSheet.Cells(RowNum, 1).value = Nothing, Nothing, objImportSheet.Cells(RowNum, 1).value.ToString)
-                    If oTagname = Nothing Then
+                    If objImportSheet.Cells(RowNum, 1).value = Nothing Then
                         Continue For
                     End If
-                    oHisData = IIf(objImportSheet.Cells(RowNum, 2).value = Nothing, Nothing, CSng(objImportSheet.Cells(RowNum, 2).value.ToString))
-                    oDate = IIf(objImportSheet.Cells(RowNum, 3).value = Nothing, Nothing, CDate(objImportSheet.Cells(RowNum, 3).value.ToString))
-                    oMillisecond = IIf(objImportSheet.Cells(RowNum, 4).value = Nothing, Nothing, CInt(objImportSheet.Cells(RowNum, 4).value.ToString))
-                    If oHisData = Nothing Or oDate = Nothing Then
+                    oTagname = objImportSheet.Cells(RowNum, 1).value.ToString
+                    If objImportSheet.Cells(RowNum, 2).value = Nothing Or objImportSheet.Cells(RowNum, 3).value = Nothing Then
                         MsgBox("第" + RowNum.ToString + "行的数据有空值！")
                         TextBoxMsg += "文件:" + InsertHisDataExcelPath + "中第" + RowNum.ToString + "行的数据有空值！"
                         Continue For
-                    ElseIf oMillisecond > 999 Or oMillisecond < 0 Then
+                    End If
+                    oHisData = CSng(objImportSheet.Cells(RowNum, 2).value.ToString)
+                    oDate = CDate(objImportSheet.Cells(RowNum, 3).value.ToString)
+                    If objImportSheet.Cells(RowNum, 4).value = Nothing Or oMillisecond > 999 Or oMillisecond < 0 Then
                         MsgBox("第" + RowNum.ToString + "行的Millisecond数据有误！")
                         TextBoxMsg += "文件:" + InsertHisDataExcelPath + "中第" + RowNum.ToString + "行的Millisecond数据有误！"
                         Continue For
                     End If
+                    oMillisecond = CInt(objImportSheet.Cells(RowNum, 4).value.ToString)
 
                     Dim iTagname As String = oTagname
                     Dim iDate As Object = oDate
@@ -970,7 +967,6 @@ Public Class Form1
                 ScrollToEnd()
             Catch ex As Exception
                 MsgBox(ex.Message)
-                objExcelFile.ActiveWorkbook.Close(SaveChanges:=False)
                 objExcelFile.Quit()
             End Try
             If ProgressBar1.Value < ProgressBar1.Maximum Then
@@ -978,7 +974,6 @@ Public Class Form1
                 ProgressBar1.PerformStep()
             End If
             '关闭Excel进程并释放资源
-            objExcelFile.ActiveWorkbook.Close(SaveChanges:=True)
             objExcelFile.Quit()
             objWorkBook = Nothing
             objImportSheet = Nothing
@@ -986,6 +981,7 @@ Public Class Form1
         Else
             MsgBox("数据库未连接！")
         End If
+        ProgressBar1.Value = 0
     End Sub
 
     Private Sub ScrollToEnd()
