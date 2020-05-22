@@ -13,6 +13,7 @@
             frm1.UpdateBoundariesButton.Enabled = True
             frm1.UpdateManageDataButton.Enabled = True
             frm1.InsertHisDataButton.Enabled = True
+            frm1.InsertRealTimeData.Enabled = True
             Me.Close()
         Else
             MsgBox("密码错误！")

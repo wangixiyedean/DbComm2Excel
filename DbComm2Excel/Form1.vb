@@ -7,17 +7,19 @@ Public Class Form1
     Private ConnStatus As Boolean
     Private ReadDataExcelPath As String '读取数据Excel文件路径
     Private ManageExcelPath As String '经营数据Excel文件路径
-    Private InsertHisDataExcelPath As String '插入历史数据Excel文件路径
+    Private InsertDataExcelPath As String '插入历史数据Excel文件路径
     Private TextBoxMsg As String
     Private BarThread As Thread
-    Private HisOrReal As Integer '读取数据操作标签，1为读取历史数据，2为读取实时数据，3为初始值
+    Private ReadHisOrReal As Integer '读取数据操作标签，1为读取历史数据，2为读取实时数据，3为初始值
+    Private InsertHisOrReal As Integer '插入数据操作标签，1为插入历史数据，2为插入实时数据，3为初始值
     Public AdminMode As Boolean
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ConnStatus = False
         AdminMode = False
         TextBoxMsg = ""
-        HisOrReal = 3
+        ReadHisOrReal = 3
+        InsertHisOrReal = 3
         '初始化进度条
         ProgressBar1.Value = 0
         ProgressBar1.Minimum = 0
@@ -28,6 +30,7 @@ Public Class Form1
         OpenFileDialog2.InitialDirectory = StartPath
         OpenFileDialog3.InitialDirectory = StartPath
         OpenFileDialog4.InitialDirectory = StartPath
+        OpenFileDialog5.InitialDirectory = StartPath
         OpenFileDialog5.InitialDirectory = StartPath
     End Sub
 
@@ -91,12 +94,12 @@ Public Class Form1
                 ProgressBar1.Value = 0
                 Exit Sub
             End If
-            If HisOrReal = 3 Then
+            If ReadHisOrReal = 3 Then
                 Dim r As MsgBoxResult = MsgBox("确定读取历史数据到" + ReadDataExcelPath + "中吗？", MsgBoxStyle.OkCancel, "读取数据")
                 If r = MsgBoxResult.Cancel Then
                     Exit Sub
                 End If
-            ElseIf HisOrReal = 2 Then
+            ElseIf ReadHisOrReal = 2 Then
                 Dim r As MsgBoxResult = MsgBox("上次操作为读取实时数据，请先更改目标文件", MsgBoxStyle.OkOnly, "读取数据")
                 Exit Sub
             End If
@@ -216,7 +219,7 @@ Public Class Form1
                 MsgBox("请填写Tag。")
             End If
             '设置标签为读取实时数据
-            HisOrReal = 1
+            ReadHisOrReal = 1
         Else
             MsgBox("数据库未连接！")
         End If
@@ -232,12 +235,12 @@ Public Class Form1
                 ProgressBar1.Value = 0
                 Exit Sub
             End If
-            If HisOrReal = 3 Then
+            If ReadHisOrReal = 3 Then
                 Dim r As MsgBoxResult = MsgBox("确定读取实时数据到" + ReadDataExcelPath + "中吗？", MsgBoxStyle.OkCancel, "读取数据")
                 If r = MsgBoxResult.Cancel Then
                     Exit Sub
                 End If
-            ElseIf HisOrReal = 1 Then
+            ElseIf ReadHisOrReal = 1 Then
                 Dim r As MsgBoxResult = MsgBox("上次操作为读取历史数据，请先更改目标文件", MsgBoxStyle.OkOnly, "读取数据")
                 Exit Sub
             End If
@@ -320,7 +323,7 @@ Public Class Form1
                 MsgBox("请填写Tag。")
             End If
             '设置标签为读取实时数据
-            HisOrReal = 2
+            ReadHisOrReal = 2
         Else
             MsgBox("数据库未连接！")
         End If
@@ -513,7 +516,7 @@ Public Class Form1
                 End If
                 Dim PVList As New List(Of Double)
                 PVList = GetPVList(objImportSheet, LastRowNum, PVList) '获取点位的PV值
-                Select Case PcFlag - ModelFlag'根据工作表的次序分别放到不同的List中
+                Select Case PcFlag - ModelFlag '根据工作表的次序分别放到不同的List中
                     Case 0
                         PC1_H_PVList = PVList
                     Case 1
@@ -872,20 +875,20 @@ Public Class Form1
         End If
     End Sub
 
-    'Button 选择插入历史数据文件
+    'Button 选择插入数据文件
     Private Sub SelectInsertHisDataExcel(sender As Object, e As EventArgs) Handles SelectInsertHisDataExcelButton.Click
         If OpenFileDialog5.ShowDialog() = DialogResult.OK Then
-            If IsFileReady(InsertHisDataExcelPath) = False Then
+            If IsFileReady(InsertDataExcelPath) = False Then
                 MsgBox("目标Excel文件被占用。")
                 Exit Sub
             Else
-                InsertHisDataExcelPath = OpenFileDialog5.FileName 'Excel文件路径
+                InsertDataExcelPath = OpenFileDialog5.FileName 'Excel文件路径
                 Try
-                    System.Diagnostics.Process.Start(InsertHisDataExcelPath)
+                    System.Diagnostics.Process.Start(InsertDataExcelPath)
                 Catch ex As Exception
                     MsgBox("打开文件失败！")
                 End Try
-                TextBoxMsg = TextBoxMsg + "当前历史数据文件：" + InsertHisDataExcelPath.ToString + Chr(13) + Chr(10)
+                TextBoxMsg = TextBoxMsg + "当前插入数据文件：" + InsertDataExcelPath.ToString + Chr(13) + Chr(10)
                 TextResult.Text = TextBoxMsg
                 ScrollToEnd()
             End If
@@ -895,12 +898,21 @@ Public Class Form1
     'Button 插入历史数据
     Private Sub InsertHisData(sender As Object, e As EventArgs) Handles InsertHisDataButton.Click
         If ConnStatus = True Then
-            If InsertHisDataExcelPath = Nothing Or InsertHisDataExcelPath = "" Then
+            If InsertDataExcelPath = Nothing Or InsertDataExcelPath = "" Then
                 MsgBox("请先选择文件")
                 ProgressBar1.Value = 0
                 Exit Sub
             End If
-            If IsFileReady(InsertHisDataExcelPath) = False Then
+            If InsertHisOrReal = 3 Then
+                Dim r As MsgBoxResult = MsgBox("确定" + InsertDataExcelPath + "中的数据作为历史数据插入数据库吗？", MsgBoxStyle.OkCancel, "插入数据")
+                If r = MsgBoxResult.Cancel Then
+                    Exit Sub
+                End If
+            ElseIf InsertHisOrReal = 2 Then
+                Dim r As MsgBoxResult = MsgBox("上次操作为插入实时数据，请先更改目标文件", MsgBoxStyle.OkOnly, "插入数据")
+                Exit Sub
+            End If
+            If IsFileReady(InsertDataExcelPath) = False Then
                 MsgBox("目标Excel文件被占用")
                 ProgressBar1.Value = 0
                 Exit Sub
@@ -914,7 +926,7 @@ Public Class Form1
                 .DisplayAlerts = False,
                 .Visible = False
             }
-            objWorkBook = objExcelFile.Workbooks.Open(InsertHisDataExcelPath)
+            objWorkBook = objExcelFile.Workbooks.Open(InsertDataExcelPath)
             objImportSheet = objWorkBook.Sheets(1) '取第1个工作表
             Dim LastColNum As Integer = objImportSheet.UsedRange.Columns.Count '最后有数据的列号
             Dim LastRowNum As Integer = objImportSheet.UsedRange.Rows.Count '最后有数据的行号
@@ -932,14 +944,14 @@ Public Class Form1
                     oTagname = objImportSheet.Cells(RowNum, 1).value.ToString
                     If objImportSheet.Cells(RowNum, 2).value = Nothing Or objImportSheet.Cells(RowNum, 3).value = Nothing Then
                         MsgBox("第" + RowNum.ToString + "行的数据有空值！")
-                        TextBoxMsg += "文件:" + InsertHisDataExcelPath + "中第" + RowNum.ToString + "行的数据有空值！"
+                        TextBoxMsg += "文件:" + InsertDataExcelPath + "中第" + RowNum.ToString + "行的数据有空值！"
                         Continue For
                     End If
                     oHisData = CSng(objImportSheet.Cells(RowNum, 2).value.ToString)
                     oDate = CDate(objImportSheet.Cells(RowNum, 3).value.ToString)
                     If objImportSheet.Cells(RowNum, 4).value = Nothing Or oMillisecond > 999 Or oMillisecond < 0 Then
                         MsgBox("第" + RowNum.ToString + "行的Millisecond数据有误！")
-                        TextBoxMsg += "文件:" + InsertHisDataExcelPath + "中第" + RowNum.ToString + "行的Millisecond数据有误！"
+                        TextBoxMsg += "文件:" + InsertDataExcelPath + "中第" + RowNum.ToString + "行的Millisecond数据有误！"
                         Continue For
                     End If
                     oMillisecond = CInt(objImportSheet.Cells(RowNum, 4).value.ToString)
@@ -953,7 +965,7 @@ Public Class Form1
                     InsertResult = DbCommOcxFC7.InsertHisData(iTagname, iDate, iMillisecond, iHisData)
                     If InsertResult = 0 Then
                         MsgBox("第" + RowNum.ToString + "行的数据插入失败！")
-                        TextBoxMsg += "文件:" + InsertHisDataExcelPath + "中第" + RowNum.ToString + "行的数据插入失败！"
+                        TextBoxMsg += "文件:" + InsertDataExcelPath + "中第" + RowNum.ToString + "行的数据插入失败！"
                         Continue For
                     End If
                     If ProgressBar1.Value + (90 \ LastRowNum) <= ProgressBar1.Maximum Then
@@ -962,7 +974,7 @@ Public Class Form1
                     End If
                 Next
                 MsgBox("历史数据插入完成！")
-                TextBoxMsg += "文件:" + InsertHisDataExcelPath + "中历史数据已插入力控数据库"
+                TextBoxMsg += "文件:" + InsertDataExcelPath + "中历史数据已插入力控数据库"
                 TextResult.Text = TextBoxMsg
                 ScrollToEnd()
             Catch ex As Exception
@@ -978,8 +990,93 @@ Public Class Form1
             objWorkBook = Nothing
             objImportSheet = Nothing
             objExcelFile = Nothing
+            InsertHisOrReal = 1
         Else
             MsgBox("数据库未连接！")
+        End If
+        ProgressBar1.Value = 0
+    End Sub
+
+    Private Sub InsertRealTimeData_Click(sender As Object, e As EventArgs) Handles InsertRealTimeData.Click
+        If ConnStatus = True Then
+            If InsertDataExcelPath = Nothing Or InsertDataExcelPath = "" Then
+                MsgBox("请先选择文件")
+                ProgressBar1.Value = 0
+                Exit Sub
+            End If
+            If InsertHisOrReal = 3 Then
+                Dim r As MsgBoxResult = MsgBox("确定" + InsertDataExcelPath + "中的数据作为实时数据插入数据库吗？", MsgBoxStyle.OkCancel, "插入数据")
+                If r = MsgBoxResult.Cancel Then
+                    Exit Sub
+                End If
+            ElseIf InsertHisOrReal = 1 Then
+                Dim r As MsgBoxResult = MsgBox("上次操作为插入历史数据，请先更改目标文件", MsgBoxStyle.OkOnly, "插入数据")
+                Exit Sub
+            End If
+            If IsFileReady(InsertDataExcelPath) = False Then
+                MsgBox("目标Excel文件被占用")
+                ProgressBar1.Value = 0
+                Exit Sub
+            End If
+            CreateTread4Bar()
+            Dim objExcelFile As Excel.Application
+            Dim objWorkBook As Excel.Workbook
+            Dim objImportSheet As Excel.Worksheet
+            '创建Excel进程, 并打开目标Excel文件
+            objExcelFile = New Excel.Application With {
+                .DisplayAlerts = False,
+                .Visible = False
+            }
+            objWorkBook = objExcelFile.Workbooks.Open(InsertDataExcelPath)
+            objImportSheet = objWorkBook.Sheets(1) '取第1个工作表
+            Dim LastColNum As Integer = objImportSheet.UsedRange.Columns.Count '最后有数据的列号
+            Dim LastRowNum As Integer = objImportSheet.UsedRange.Rows.Count '最后有数据的行号
+            Try
+                For RowNum As Integer = 2 To LastRowNum Step 1
+                    Dim Tagname As String 'col1
+                    Dim RealData As String 'col2
+                    If objImportSheet.Cells(RowNum, 1).value = Nothing Then
+                        Continue For
+                    End If
+                    Tagname = objImportSheet.Cells(RowNum, 1).value.ToString
+                    If objImportSheet.Cells(RowNum, 2).value = Nothing Then
+                        MsgBox("第" + RowNum.ToString + "行的数据有空值！")
+                        TextBoxMsg += "文件:" + InsertDataExcelPath + "中第" + RowNum.ToString + "行的数据有空值！"
+                        Continue For
+                    End If
+                    RealData = objImportSheet.Cells(RowNum, 2).value.ToString
+                    Dim InsertResult As Integer
+                    InsertResult = DbCommOcxFC7.SetData(Tagname, RealData)
+                    If InsertResult = 0 Then
+                        MsgBox("第" + RowNum.ToString + "行的数据插入失败！")
+                        TextBoxMsg += "文件:" + InsertDataExcelPath + "中第" + RowNum.ToString + "行的数据插入失败！"
+                        Continue For
+                    End If
+                    If ProgressBar1.Value + (90 \ LastRowNum) <= ProgressBar1.Maximum Then
+                        ProgressBar1.Value = ProgressBar1.Value + (90 \ LastRowNum)
+                        ProgressBar1.PerformStep()
+                    End If
+                Next
+                MsgBox("实时数据插入完成！")
+                TextBoxMsg += "文件:" + InsertDataExcelPath + "中实时数据已插入力控数据库"
+                TextResult.Text = TextBoxMsg
+                ScrollToEnd()
+            Catch ex As Exception
+                MsgBox(ex.Message)
+                objExcelFile.Quit()
+            End Try
+            If ProgressBar1.Value < ProgressBar1.Maximum Then
+                ProgressBar1.Value = ProgressBar1.Maximum
+                ProgressBar1.PerformStep()
+            End If
+            '关闭Excel进程并释放资源
+            objExcelFile.Quit()
+            objWorkBook = Nothing
+            objImportSheet = Nothing
+            objExcelFile = Nothing
+            InsertHisOrReal = 2
+        Else
+            MsgBox("数据库未连接!")
         End If
         ProgressBar1.Value = 0
     End Sub
@@ -1001,4 +1098,53 @@ Public Class Form1
             MsgBox("数据库未连接！")
         End If
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If OpenFileDialog6.ShowDialog() = DialogResult.OK Then
+            Dim FileNames As List(Of String) = OpenFileDialog6.FileNames.ToList
+            Dim CsvContents As String
+            Dim Tags As String = "Tag"
+            Dim XMeans As String = ""
+            Dim XWeights As String = ""
+            Dim Loadings As String = ""
+            Dim Eigenvalues As String = ""
+            For Each FileName As String In FileNames
+                Dim sr As StreamReader = New StreamReader(FileName, System.Text.Encoding.Default)
+                Dim content As String = sr.ReadToEnd()
+                Dim Lines As List(Of String) = content.Split(vbCrLf).ToList
+                If FileName.Contains("X Means") Then
+                    Tags += Lines.ElementAt(0)
+                    Lines.RemoveAt(0)
+                    XMeans = Lines.ElementAt(0)
+                ElseIf FileName.Contains("X Weights") Then
+                    Lines.RemoveAt(0)
+                    XWeights = Lines.ElementAt(0)
+                ElseIf FileName.Contains("Loadings") Then
+                    Lines.RemoveAt(0)
+                    For Each Line As String In Lines
+                        Line.Trim()
+                        If Line = "" Or Line = Chr(10) Then
+                            Continue For
+                        End If
+                        Loadings += Line
+                    Next
+                ElseIf FileName.Contains("Eigenvalues") Then
+                    Lines.RemoveAt(0)
+                    Eigenvalues = Lines.ElementAt(0)
+                End If
+            Next
+            CsvContents = Tags + XMeans + XWeights + Loadings + Eigenvalues
+            SaveFileDialog1.Filter = "CSV Files (*.csv*)|*.csv"
+            If SaveFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
+                My.Computer.FileSystem.WriteAllText(SaveFileDialog1.FileName, CsvContents, False)
+            End If
+            Try
+                Process.Start(SaveFileDialog1.FileName)
+            Catch ex As Exception
+                MsgBox("打开文件失败！")
+            End Try
+        End If
+    End Sub
+
+
 End Class
