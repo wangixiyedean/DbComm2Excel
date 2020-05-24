@@ -14,6 +14,11 @@
             frm1.UpdateManageDataButton.Enabled = True
             frm1.InsertHisDataButton.Enabled = True
             frm1.InsertRealTimeData.Enabled = True
+
+            frm1.ActiveAdminModeToolStripMenuItem.Enabled = False
+            frm1.AdminModeActivatedToolStripMenuItem.Enabled = True
+            frm1.insert()
+
             Me.Close()
         Else
             MsgBox("密码错误！")

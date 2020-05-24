@@ -34,12 +34,12 @@ Partial Class Form1
         Me.TextResult = New System.Windows.Forms.TextBox()
         Me.SelectReadDataExcelButton = New System.Windows.Forms.Button()
         Me.ReadHisDataButton = New System.Windows.Forms.Button()
-        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.ReadDataOpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.UpdateBoundariesButton = New System.Windows.Forms.Button()
-        Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
+        Me.InsertBoundariesOpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.GetBoundariesTagsButton = New System.Windows.Forms.Button()
-        Me.OpenFileDialog3 = New System.Windows.Forms.OpenFileDialog()
+        Me.BoundariesTagOpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.GenerateBoundariesButton = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.DbCommOcxFC7 = New AxDBCOMMOCXLibFC7.AxDbCommOcxFC7()
@@ -50,19 +50,39 @@ Partial Class Form1
         Me.UpdateManageDataButton = New System.Windows.Forms.Button()
         Me.SelectManageExcelButton = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.OpenFileDialog4 = New System.Windows.Forms.OpenFileDialog()
+        Me.ManageFileOpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.AdminModeButton = New System.Windows.Forms.Button()
-        Me.OpenFileDialog5 = New System.Windows.Forms.OpenFileDialog()
+        Me.InsertDataOpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.InsertRealTimeData = New System.Windows.Forms.Button()
         Me.InsertHisDataButton = New System.Windows.Forms.Button()
         Me.SelectInsertHisDataExcelButton = New System.Windows.Forms.Button()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.OpenFileDialog6 = New System.Windows.Forms.OpenFileDialog()
-        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.ModelConvOpenFileDialog = New System.Windows.Forms.OpenFileDialog()
+        Me.ModelCsvSaveFileDialog = New System.Windows.Forms.SaveFileDialog()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.PMReadDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SelectReadDataFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReadHisDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReadRTDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PMInsertDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SelectInsertDataFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InsertHisDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InsertRTDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PMToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GenerateBoundariesDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GenerateBoundariesTagsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InsertBoundariesDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SelectManageFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InsertManageDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PMMdlConvToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GenerateMdlToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AdminModeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ActiveAdminModeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AdminModeActivatedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DbCommOcxFC7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -72,13 +92,14 @@ Partial Class Form1
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label4.Location = New System.Drawing.Point(6, 113)
+        Me.Label4.Location = New System.Drawing.Point(244, 38)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(74, 21)
         Me.Label4.TabIndex = 12
@@ -88,7 +109,7 @@ Partial Class Form1
         '
         Me.ConnResult.Cursor = System.Windows.Forms.Cursors.Default
         Me.ConnResult.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.ConnResult.Location = New System.Drawing.Point(86, 106)
+        Me.ConnResult.Location = New System.Drawing.Point(338, 30)
         Me.ConnResult.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.ConnResult.Name = "ConnResult"
         Me.ConnResult.ReadOnly = True
@@ -99,7 +120,7 @@ Partial Class Form1
         'TxtPort
         '
         Me.TxtPort.Font = New System.Drawing.Font("宋体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.TxtPort.Location = New System.Drawing.Point(86, 66)
+        Me.TxtPort.Location = New System.Drawing.Point(86, 96)
         Me.TxtPort.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.TxtPort.Name = "TxtPort"
         Me.TxtPort.Size = New System.Drawing.Size(140, 26)
@@ -109,7 +130,7 @@ Partial Class Form1
         'TxtIPAddress
         '
         Me.TxtIPAddress.Font = New System.Drawing.Font("宋体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.TxtIPAddress.Location = New System.Drawing.Point(86, 26)
+        Me.TxtIPAddress.Location = New System.Drawing.Point(86, 33)
         Me.TxtIPAddress.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.TxtIPAddress.Name = "TxtIPAddress"
         Me.TxtIPAddress.Size = New System.Drawing.Size(140, 26)
@@ -120,7 +141,7 @@ Partial Class Form1
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label2.Location = New System.Drawing.Point(6, 66)
+        Me.Label2.Location = New System.Drawing.Point(6, 99)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(42, 21)
         Me.Label2.TabIndex = 7
@@ -130,7 +151,7 @@ Partial Class Form1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label1.Location = New System.Drawing.Point(6, 26)
+        Me.Label1.Location = New System.Drawing.Point(6, 38)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(57, 21)
         Me.Label1.TabIndex = 8
@@ -141,7 +162,7 @@ Partial Class Form1
         Me.CmdDisconn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.CmdDisconn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.CmdDisconn.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.CmdDisconn.Location = New System.Drawing.Point(6, 147)
+        Me.CmdDisconn.Location = New System.Drawing.Point(248, 86)
         Me.CmdDisconn.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.CmdDisconn.Name = "CmdDisconn"
         Me.CmdDisconn.Size = New System.Drawing.Size(100, 40)
@@ -154,7 +175,7 @@ Partial Class Form1
         Me.CmdRemotConn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.CmdRemotConn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.CmdRemotConn.Font = New System.Drawing.Font("微软雅黑", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.CmdRemotConn.Location = New System.Drawing.Point(126, 147)
+        Me.CmdRemotConn.Location = New System.Drawing.Point(378, 86)
         Me.CmdRemotConn.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.CmdRemotConn.Name = "CmdRemotConn"
         Me.CmdRemotConn.Size = New System.Drawing.Size(100, 40)
@@ -199,13 +220,13 @@ Partial Class Form1
         Me.ReadHisDataButton.Text = "读取历史数据"
         Me.ReadHisDataButton.UseVisualStyleBackColor = True
         '
-        'OpenFileDialog1
+        'ReadDataOpenFileDialog
         '
-        Me.OpenFileDialog1.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
+        Me.ReadDataOpenFileDialog.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 525)
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 507)
         Me.ProgressBar1.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(654, 25)
@@ -225,9 +246,9 @@ Partial Class Form1
         Me.UpdateBoundariesButton.Text = "写入边界点值"
         Me.UpdateBoundariesButton.UseVisualStyleBackColor = True
         '
-        'OpenFileDialog2
+        'InsertBoundariesOpenFileDialog
         '
-        Me.OpenFileDialog2.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
+        Me.InsertBoundariesOpenFileDialog.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
         '
         'GetBoundariesTagsButton
         '
@@ -242,9 +263,9 @@ Partial Class Form1
         Me.GetBoundariesTagsButton.Text = "获取边界点名"
         Me.GetBoundariesTagsButton.UseVisualStyleBackColor = True
         '
-        'OpenFileDialog3
+        'BoundariesTagOpenFileDialog
         '
-        Me.OpenFileDialog3.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
+        Me.BoundariesTagOpenFileDialog.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
         '
         'GenerateBoundariesButton
         '
@@ -270,11 +291,11 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.TxtIPAddress)
         Me.GroupBox1.Controls.Add(Me.ConnResult)
         Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 15)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 34)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 6, 3, 6)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 6, 3, 6)
-        Me.GroupBox1.Size = New System.Drawing.Size(240, 200)
+        Me.GroupBox1.Size = New System.Drawing.Size(532, 163)
         Me.GroupBox1.TabIndex = 22
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "连接属性"
@@ -294,7 +315,7 @@ Partial Class Form1
         Me.GroupBox2.Controls.Add(Me.ReadRealTimeDataButton)
         Me.GroupBox2.Controls.Add(Me.SelectReadDataExcelButton)
         Me.GroupBox2.Controls.Add(Me.ReadHisDataButton)
-        Me.GroupBox2.Location = New System.Drawing.Point(534, 15)
+        Me.GroupBox2.Location = New System.Drawing.Point(803, 107)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(3, 6, 3, 6)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(3, 6, 3, 6)
@@ -321,7 +342,7 @@ Partial Class Form1
         Me.GroupBox3.Controls.Add(Me.GetBoundariesTagsButton)
         Me.GroupBox3.Controls.Add(Me.UpdateBoundariesButton)
         Me.GroupBox3.Controls.Add(Me.GenerateBoundariesButton)
-        Me.GroupBox3.Location = New System.Drawing.Point(258, 15)
+        Me.GroupBox3.Location = New System.Drawing.Point(935, 94)
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(3, 6, 3, 6)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(3, 6, 3, 6)
@@ -334,7 +355,7 @@ Partial Class Form1
         '
         Me.GroupBox4.Controls.Add(Me.UpdateManageDataButton)
         Me.GroupBox4.Controls.Add(Me.SelectManageExcelButton)
-        Me.GroupBox4.Location = New System.Drawing.Point(12, 302)
+        Me.GroupBox4.Location = New System.Drawing.Point(665, 368)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(146, 129)
         Me.GroupBox4.TabIndex = 25
@@ -369,22 +390,22 @@ Partial Class Form1
         'GroupBox5
         '
         Me.GroupBox5.Controls.Add(Me.TextResult)
-        Me.GroupBox5.Location = New System.Drawing.Point(170, 224)
+        Me.GroupBox5.Location = New System.Drawing.Point(12, 206)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(496, 291)
+        Me.GroupBox5.Size = New System.Drawing.Size(518, 291)
         Me.GroupBox5.TabIndex = 26
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "输出结果"
         '
-        'OpenFileDialog4
+        'ManageFileOpenFileDialog
         '
-        Me.OpenFileDialog4.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
+        Me.ManageFileOpenFileDialog.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
         '
         'GroupBox6
         '
         Me.GroupBox6.Controls.Add(Me.TextBox2)
         Me.GroupBox6.Controls.Add(Me.AdminModeButton)
-        Me.GroupBox6.Location = New System.Drawing.Point(12, 216)
+        Me.GroupBox6.Location = New System.Drawing.Point(890, 507)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(152, 80)
         Me.GroupBox6.TabIndex = 27
@@ -415,16 +436,16 @@ Partial Class Form1
         Me.AdminModeButton.Text = "进入管理员模式"
         Me.AdminModeButton.UseVisualStyleBackColor = True
         '
-        'OpenFileDialog5
+        'InsertDataOpenFileDialog
         '
-        Me.OpenFileDialog5.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
+        Me.InsertDataOpenFileDialog.Filter = "Excel表格|*.xlsx;*.xls;*.csv"
         '
         'GroupBox7
         '
         Me.GroupBox7.Controls.Add(Me.InsertRealTimeData)
         Me.GroupBox7.Controls.Add(Me.InsertHisDataButton)
         Me.GroupBox7.Controls.Add(Me.SelectInsertHisDataExcelButton)
-        Me.GroupBox7.Location = New System.Drawing.Point(396, 15)
+        Me.GroupBox7.Location = New System.Drawing.Point(665, 107)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(132, 200)
         Me.GroupBox7.TabIndex = 28
@@ -472,7 +493,7 @@ Partial Class Form1
         'GroupBox8
         '
         Me.GroupBox8.Controls.Add(Me.Button1)
-        Me.GroupBox8.Location = New System.Drawing.Point(12, 437)
+        Me.GroupBox8.Location = New System.Drawing.Point(878, 356)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(146, 78)
         Me.GroupBox8.TabIndex = 29
@@ -488,17 +509,148 @@ Partial Class Form1
         Me.Button1.Text = "合并txt"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'OpenFileDialog6
+        'ModelConvOpenFileDialog
         '
-        Me.OpenFileDialog6.Filter = "文本文件|*.txt"
-        Me.OpenFileDialog6.Multiselect = True
+        Me.ModelConvOpenFileDialog.Filter = "文本文件|*.txt"
+        Me.ModelConvOpenFileDialog.Multiselect = True
+        '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Font = New System.Drawing.Font("Microsoft YaHei UI", 11.0!)
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PMReadDataToolStripMenuItem, Me.PMInsertDataToolStripMenuItem, Me.PMToolStripMenuItem, Me.PMMdlConvToolStripMenuItem, Me.AdminModeToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
+        Me.MenuStrip1.Size = New System.Drawing.Size(1093, 28)
+        Me.MenuStrip1.TabIndex = 30
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'PMReadDataToolStripMenuItem
+        '
+        Me.PMReadDataToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SelectReadDataFileToolStripMenuItem, Me.ReadHisDataToolStripMenuItem, Me.ReadRTDataToolStripMenuItem})
+        Me.PMReadDataToolStripMenuItem.Name = "PMReadDataToolStripMenuItem"
+        Me.PMReadDataToolStripMenuItem.Size = New System.Drawing.Size(115, 24)
+        Me.PMReadDataToolStripMenuItem.Text = "PMReadData"
+        '
+        'SelectReadDataFileToolStripMenuItem
+        '
+        Me.SelectReadDataFileToolStripMenuItem.Name = "SelectReadDataFileToolStripMenuItem"
+        Me.SelectReadDataFileToolStripMenuItem.Size = New System.Drawing.Size(171, 24)
+        Me.SelectReadDataFileToolStripMenuItem.Text = "SelectFile"
+        '
+        'ReadHisDataToolStripMenuItem
+        '
+        Me.ReadHisDataToolStripMenuItem.Name = "ReadHisDataToolStripMenuItem"
+        Me.ReadHisDataToolStripMenuItem.Size = New System.Drawing.Size(171, 24)
+        Me.ReadHisDataToolStripMenuItem.Text = "ReadHisData"
+        '
+        'ReadRTDataToolStripMenuItem
+        '
+        Me.ReadRTDataToolStripMenuItem.Name = "ReadRTDataToolStripMenuItem"
+        Me.ReadRTDataToolStripMenuItem.Size = New System.Drawing.Size(171, 24)
+        Me.ReadRTDataToolStripMenuItem.Text = "ReadRTData"
+        '
+        'PMInsertDataToolStripMenuItem
+        '
+        Me.PMInsertDataToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SelectInsertDataFileToolStripMenuItem, Me.InsertHisDataToolStripMenuItem, Me.InsertRTDataToolStripMenuItem})
+        Me.PMInsertDataToolStripMenuItem.Name = "PMInsertDataToolStripMenuItem"
+        Me.PMInsertDataToolStripMenuItem.Size = New System.Drawing.Size(119, 24)
+        Me.PMInsertDataToolStripMenuItem.Text = "PMInsertData"
+        '
+        'SelectInsertDataFileToolStripMenuItem
+        '
+        Me.SelectInsertDataFileToolStripMenuItem.Name = "SelectInsertDataFileToolStripMenuItem"
+        Me.SelectInsertDataFileToolStripMenuItem.Size = New System.Drawing.Size(175, 24)
+        Me.SelectInsertDataFileToolStripMenuItem.Text = "SelectFile"
+        '
+        'InsertHisDataToolStripMenuItem
+        '
+        Me.InsertHisDataToolStripMenuItem.Name = "InsertHisDataToolStripMenuItem"
+        Me.InsertHisDataToolStripMenuItem.Size = New System.Drawing.Size(175, 24)
+        Me.InsertHisDataToolStripMenuItem.Text = "InsertHisData"
+        '
+        'InsertRTDataToolStripMenuItem
+        '
+        Me.InsertRTDataToolStripMenuItem.Name = "InsertRTDataToolStripMenuItem"
+        Me.InsertRTDataToolStripMenuItem.Size = New System.Drawing.Size(175, 24)
+        Me.InsertRTDataToolStripMenuItem.Text = "InsertRTData"
+        '
+        'PMToolStripMenuItem
+        '
+        Me.PMToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GenerateBoundariesDataToolStripMenuItem, Me.GenerateBoundariesTagsToolStripMenuItem, Me.InsertBoundariesDataToolStripMenuItem, Me.SelectManageFileToolStripMenuItem, Me.InsertManageDataToolStripMenuItem})
+        Me.PMToolStripMenuItem.Name = "PMToolStripMenuItem"
+        Me.PMToolStripMenuItem.Size = New System.Drawing.Size(85, 24)
+        Me.PMToolStripMenuItem.Text = "PMTools"
+        '
+        'GenerateBoundariesDataToolStripMenuItem
+        '
+        Me.GenerateBoundariesDataToolStripMenuItem.Name = "GenerateBoundariesDataToolStripMenuItem"
+        Me.GenerateBoundariesDataToolStripMenuItem.Size = New System.Drawing.Size(260, 24)
+        Me.GenerateBoundariesDataToolStripMenuItem.Text = "GenerateBoundariesData"
+        '
+        'GenerateBoundariesTagsToolStripMenuItem
+        '
+        Me.GenerateBoundariesTagsToolStripMenuItem.Name = "GenerateBoundariesTagsToolStripMenuItem"
+        Me.GenerateBoundariesTagsToolStripMenuItem.Size = New System.Drawing.Size(260, 24)
+        Me.GenerateBoundariesTagsToolStripMenuItem.Text = "GenerateBoundariesTags"
+        '
+        'InsertBoundariesDataToolStripMenuItem
+        '
+        Me.InsertBoundariesDataToolStripMenuItem.Name = "InsertBoundariesDataToolStripMenuItem"
+        Me.InsertBoundariesDataToolStripMenuItem.Size = New System.Drawing.Size(260, 24)
+        Me.InsertBoundariesDataToolStripMenuItem.Text = "InsertBoundariesData"
+        '
+        'SelectManageFileToolStripMenuItem
+        '
+        Me.SelectManageFileToolStripMenuItem.Name = "SelectManageFileToolStripMenuItem"
+        Me.SelectManageFileToolStripMenuItem.Size = New System.Drawing.Size(260, 24)
+        Me.SelectManageFileToolStripMenuItem.Text = "SelectManageFile"
+        '
+        'InsertManageDataToolStripMenuItem
+        '
+        Me.InsertManageDataToolStripMenuItem.Name = "InsertManageDataToolStripMenuItem"
+        Me.InsertManageDataToolStripMenuItem.Size = New System.Drawing.Size(260, 24)
+        Me.InsertManageDataToolStripMenuItem.Text = "InsertManageData"
+        '
+        'PMMdlConvToolStripMenuItem
+        '
+        Me.PMMdlConvToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GenerateMdlToolStripMenuItem})
+        Me.PMMdlConvToolStripMenuItem.Name = "PMMdlConvToolStripMenuItem"
+        Me.PMMdlConvToolStripMenuItem.Size = New System.Drawing.Size(111, 24)
+        Me.PMMdlConvToolStripMenuItem.Text = "PMMdlConv"
+        '
+        'GenerateMdlToolStripMenuItem
+        '
+        Me.GenerateMdlToolStripMenuItem.Name = "GenerateMdlToolStripMenuItem"
+        Me.GenerateMdlToolStripMenuItem.Size = New System.Drawing.Size(174, 24)
+        Me.GenerateMdlToolStripMenuItem.Text = "GenerateMdl"
+        '
+        'AdminModeToolStripMenuItem
+        '
+        Me.AdminModeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ActiveAdminModeToolStripMenuItem, Me.AdminModeActivatedToolStripMenuItem})
+        Me.AdminModeToolStripMenuItem.Name = "AdminModeToolStripMenuItem"
+        Me.AdminModeToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
+        Me.AdminModeToolStripMenuItem.Text = "AdminMode"
+        '
+        'ActiveAdminModeToolStripMenuItem
+        '
+        Me.ActiveAdminModeToolStripMenuItem.Name = "ActiveAdminModeToolStripMenuItem"
+        Me.ActiveAdminModeToolStripMenuItem.Size = New System.Drawing.Size(240, 24)
+        Me.ActiveAdminModeToolStripMenuItem.Text = "ActiveAdminMode"
+        '
+        'AdminModeActivatedToolStripMenuItem
+        '
+        Me.AdminModeActivatedToolStripMenuItem.Enabled = False
+        Me.AdminModeActivatedToolStripMenuItem.Name = "AdminModeActivatedToolStripMenuItem"
+        Me.AdminModeActivatedToolStripMenuItem.Size = New System.Drawing.Size(240, 24)
+        Me.AdminModeActivatedToolStripMenuItem.Text = "AdminModeActivated"
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(680, 561)
+        Me.ClientSize = New System.Drawing.Size(1093, 652)
         Me.Controls.Add(Me.GroupBox8)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox6)
@@ -508,9 +660,11 @@ Partial Class Form1
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.ProgressBar1)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Font = New System.Drawing.Font("微软雅黑", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(3, 7, 3, 7)
         Me.MaximizeBox = False
         Me.Name = "Form1"
@@ -528,7 +682,10 @@ Partial Class Form1
         Me.GroupBox6.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox8.ResumeLayout(False)
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents Label4 As System.Windows.Forms.Label
@@ -542,13 +699,13 @@ Partial Class Form1
     Friend WithEvents TextResult As System.Windows.Forms.TextBox
     Friend WithEvents SelectReadDataExcelButton As System.Windows.Forms.Button
     Friend WithEvents ReadHisDataButton As System.Windows.Forms.Button
-    Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents ReadDataOpenFileDialog As System.Windows.Forms.OpenFileDialog
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents DbCommOcxFC7 As AxDBCOMMOCXLibFC7.AxDbCommOcxFC7
     Friend WithEvents UpdateBoundariesButton As Button
-    Friend WithEvents OpenFileDialog2 As OpenFileDialog
+    Friend WithEvents InsertBoundariesOpenFileDialog As OpenFileDialog
     Friend WithEvents GetBoundariesTagsButton As Button
-    Friend WithEvents OpenFileDialog3 As OpenFileDialog
+    Friend WithEvents BoundariesTagOpenFileDialog As OpenFileDialog
     Friend WithEvents GenerateBoundariesButton As Button
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
@@ -558,17 +715,37 @@ Partial Class Form1
     Friend WithEvents UpdateManageDataButton As Button
     Friend WithEvents SelectManageExcelButton As Button
     Friend WithEvents GroupBox5 As GroupBox
-    Friend WithEvents OpenFileDialog4 As OpenFileDialog
+    Friend WithEvents ManageFileOpenFileDialog As OpenFileDialog
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents AdminModeButton As Button
     Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents OpenFileDialog5 As OpenFileDialog
+    Friend WithEvents InsertDataOpenFileDialog As OpenFileDialog
     Friend WithEvents GroupBox7 As GroupBox
     Friend WithEvents InsertHisDataButton As Button
     Friend WithEvents SelectInsertHisDataExcelButton As Button
     Friend WithEvents InsertRealTimeData As System.Windows.Forms.Button
     Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents OpenFileDialog6 As System.Windows.Forms.OpenFileDialog
-    Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
+    Friend WithEvents ModelConvOpenFileDialog As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents ModelCsvSaveFileDialog As System.Windows.Forms.SaveFileDialog
+    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
+    Friend WithEvents PMReadDataToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PMToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PMMdlConvToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AdminModeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ActiveAdminModeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents SelectReadDataFileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ReadHisDataToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ReadRTDataToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PMInsertDataToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents SelectInsertDataFileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents InsertHisDataToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents InsertRTDataToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents GenerateBoundariesDataToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents GenerateBoundariesTagsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents InsertBoundariesDataToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents SelectManageFileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents InsertManageDataToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents GenerateMdlToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AdminModeActivatedToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class
