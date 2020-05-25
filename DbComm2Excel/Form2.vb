@@ -8,17 +8,12 @@
         ElseIf TextBox1.Text = "APMASCOT" Then
             frm1 = Me.Owner
             frm1.AdminMode = True
-            frm1.TextBox2.Visible = True
-            frm1.AdminModeButton.Visible = False
-            frm1.UpdateBoundariesButton.Enabled = True
-            frm1.UpdateManageDataButton.Enabled = True
-            frm1.InsertHisDataButton.Enabled = True
-            frm1.InsertRealTimeData.Enabled = True
-
             frm1.ActiveAdminModeToolStripMenuItem.Enabled = False
             frm1.AdminModeActivatedToolStripMenuItem.Enabled = True
-            frm1.insert()
-
+            frm1.InsertHisDataToolStripMenuItem.Enabled = True
+            frm1.InsertRTDataToolStripMenuItem.Enabled = True
+            frm1.InsertBoundariesDataToolStripMenuItem.Enabled = True
+            frm1.InsertManageDataToolStripMenuItem.Enabled = True
             Me.Close()
         Else
             MsgBox("密码错误！")
