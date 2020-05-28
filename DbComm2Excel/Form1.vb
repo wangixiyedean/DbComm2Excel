@@ -317,7 +317,7 @@ Public Class Form1
 
     '添加输出结果
     Private Sub AppendOutput(ByVal Output As String)
-        OutputBoxMsg += Output + Chr(13) + Chr(10)
+        OutputBoxMsg += "->" + Output + Chr(13) + Chr(10)
         OutputTextBox.Text = OutputBoxMsg
         ScrollToEnd()
     End Sub
@@ -395,9 +395,6 @@ Public Class Form1
             objImportSheet = objWorkBook.Sheets(1) '取第1个工作表
             Dim LastColNum As Integer = objImportSheet.UsedRange.Columns.Count '最后有数据的列号
             Dim LastRowNum As Integer = objImportSheet.UsedRange.Rows.Count '最后有数据的行号
-            '清空原有数据
-            Dim Range = objImportSheet.Range(objImportSheet.Cells(2, 3), objImportSheet.Cells(LastRowNum, LastColNum))
-            Range.ClearContents()
             '取出开始结束时间以及时间间隔
             Dim StartDate As Date = objImportSheet.Cells(2, 1).Value()
             Dim EndDate As Date = objImportSheet.Cells(4, 1).Value()
@@ -418,7 +415,7 @@ Public Class Form1
             CreateTread4Bar()
             '开始查询历史数据
             Dim HisDataList As New List(Of List(Of String))
-            'HisDataList.Add(DateList)
+
             If LastColNum > 3 Then
                 Try
                     '顺序取出Tag并根据Tag查询历史数据，将返回数据放入HisDataList中备用
@@ -446,6 +443,7 @@ Public Class Form1
                                 HisDataList.Add(DescData)
                         End Select
                     Next
+
                     '关闭Excel进程并释放资源
                     objExcelFile.ActiveWorkbook.Close(SaveChanges:=True)
                     objExcelFile.Quit()
@@ -454,72 +452,63 @@ Public Class Form1
                     objExcelFile = Nothing
 
                     Dim LineList As New List(Of String)
+
+                    '生成标题行
                     Dim TitleLine As String = "Date"
                     For Each Tag As String In TagList
                         TitleLine += "," + Tag
                     Next
                     LineList.Add(TitleLine)
+
+                    '将日期写入每一行的开头
                     For Each HisDate As Date In DateList
                         Dim Line As String = ""
                         Line += HisDate
                         LineList.Add(Line)
                     Next
+
                     '从HisDataList中顺序取出历史数据并写入Excel
-                    '@i:列
-                    '@j:行
-                    'Dim HisDatas As List(Of String)
-
-
+                    '@i:列  @j:行
                     For i As Integer = 0 To HisDataList.Count - 1 Step 1
                         If HisDataList.ElementAt(i).Count = 0 Then
                             Continue For
                         End If
                         Dim ColData As List(Of String) = HisDataList.ElementAt(i)
                         For j As Integer = 0 To ColData.Count - 1 Step 1
+                            '将LineList按照队列的方式处理
                             Dim Line As String = LineList.ElementAt(1)
                             Line += "," + ColData.ElementAt(j)
                             LineList.RemoveAt(1)
                             LineList.Add(Line)
                         Next
+                        If ProgressBar1.Value + 80 \ HisDataList.Count <= ProgressBar1.Maximum Then
+                            ProgressBar1.Value = ProgressBar1.Value + 80 \ HisDataList.Count
+                            ProgressBar1.PerformStep()
+                        End If
                     Next
+
+                    '汇总所有数据
                     Dim HisDataContent As String = ""
                     For Each Line In LineList
                         HisDataContent += Line + Chr(10)
                     Next
+                    Dim EndTime As Date = Date.Now '记录程序结束时间
 
-                    'For i As Integer = 0 To HisDataList.Count - 1 Step 1
-                    '    If HisDataList.ElementAt(i).Count = 0 Then
-                    '        Continue For
-                    '    End If
-                    '    Dim ColData As New List(Of String)
-                    '    ColData = HisDataList.ElementAt(i)
-                    '    For j As Integer = 0 To ColData.Count - 1 Step 1
-                    '        objImportSheet.Cells(j + 2, i + 4) = ColData.ElementAt(j)
-                    '        Dim Line As String = ""
-                    '        Line += "," + ColData.ElementAt(j)
-                    '        LineList.Add(Line)
-                    '    Next
-                    '    '进度条推进
-                    '    If ProgressBar1.Value + 80 \ HisDataList.Count <= ProgressBar1.Maximum Then
-                    '        ProgressBar1.Value = ProgressBar1.Value + 80 \ HisDataList.Count
-                    '        ProgressBar1.PerformStep()
-                    '    End If
-                    'Next
+                    '另存为csv文件
                     ModelCsvSaveFileDialog.Filter = "CSV Files (*.csv*)|*.csv"
                     If ModelCsvSaveFileDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
                         My.Computer.FileSystem.WriteAllText(ModelCsvSaveFileDialog.FileName, HisDataContent, False)
                     End If
 
+                    '推满进度条
                     If ProgressBar1.Value < ProgressBar1.Maximum Then
                         ProgressBar1.Value = ProgressBar1.Maximum
                         ProgressBar1.PerformStep()
                     End If
-                    
-                    Dim EndTime As Date = Date.Now '记录程序结束时间
+
                     MsgBox("完成！" + Chr(10) + Chr(13) + StartTime.ToString + Chr(10) + Chr(13) + EndTime.ToString)
-                    AppendOutput("文件：" + ReadDataExcelPath.ToString + "历史数据读取完成")
+                    AppendOutput("文件：" + ReadDataExcelPath.ToString + "历史数据读取完成，数据保存至" + ModelCsvSaveFileDialog.FileName)
                     Try
-                        'Process.Start(ReadDataExcelPath)
                         Process.Start(ModelCsvSaveFileDialog.FileName)
                     Catch ex As Exception
                         MsgBox("打开文件失败！")
