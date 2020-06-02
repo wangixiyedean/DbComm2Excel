@@ -703,12 +703,12 @@ Public Class Form1
                     End If
                     oHisData = CSng(objImportSheet.Cells(RowNum, 2).value.ToString)
                     oDate = CDate(objImportSheet.Cells(RowNum, 3).value.ToString)
-                    If objImportSheet.Cells(RowNum, 4).value = Nothing Or oMillisecond > 999 Or oMillisecond < 0 Then
+                    oMillisecond = CInt(objImportSheet.Cells(RowNum, 4).value.ToString)
+                    If oMillisecond > 999 Or oMillisecond < 0 Then
                         MsgBox("第" + RowNum.ToString + "行的Millisecond数据有误！")
                         OutputBoxMsg += "文件:" + InsertDataExcelPath + "中第" + RowNum.ToString + "行的Millisecond数据有误！"
                         Continue For
                     End If
-                    oMillisecond = CInt(objImportSheet.Cells(RowNum, 4).value.ToString)
 
                     Dim iTagname As String = oTagname
                     Dim iDate As Object = oDate
