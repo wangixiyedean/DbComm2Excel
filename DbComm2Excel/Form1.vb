@@ -337,7 +337,7 @@ Public Class Form1
         FormDlg.ShowDialog()
         If AdminMode = True Then
             MsgBox("已进入管理员模式")
-            AppendOutput("===============当前为管理员模式===============")
+            AppendOutput("==============当前为管理员模式==============")
         End If
     End Sub
 
